@@ -1,7 +1,7 @@
 # =-= MARKETOON =-=
 ![texto](/src/logo-marketoon.png)
 
-# EQUIPE
+## EQUIPE
 ````
 - Gabriel Victalino
 - Leonardo Gutzeit
@@ -17,10 +17,10 @@ O _Marketoon_ é um sistema de controle de vendas que tem como objetivo auxiliar
 - ***https://docs.google.com/document/d/19RyIZw_IXh2S9XvXJ6ZMTAR747L9l2BWLGTGVyqTXwM/edit?usp=sharing***
 
 ## BACKLOG DO JIRA
-![texto](/src/jira.png)
+![texto](/src/jira.jpg)
 
 ### LINK DO JIRA
-- ***https://cesar-fds-marketoon.atlassian.net/jira/core/projects/MM/board***
+- ***https://cesar-fds-mrktn.atlassian.net/jira/software/projects/A87/boards/1?atlOrigin=eyJpIjoiYTMwMmU5YTcxNWU5NDVjODg2YzFiZjZmZmE2YmRlMDMiLCJwIjoiaiJ9***
 
  ## PROTÓTIPOS LO-FI
 ![texto](/src/marketoon-login.png)
@@ -32,6 +32,6 @@ O _Marketoon_ é um sistema de controle de vendas que tem como objetivo auxiliar
 ### LINK DO FIGMA 
 - ***https://www.figma.com/design/iAxmRVvwgzU2JhyuXQMJPW/Marketoon?node-id=0-1&t=yasWfchrEYulCiVO-1***
 
-#### SCREENCAST
+### SCREENCAST
 
 [🎬 Clique aqui para assistir o vídeo](https://youtu.be/e2Vaw_EXg98?si=TZECz9bFMMTPF_FV)
