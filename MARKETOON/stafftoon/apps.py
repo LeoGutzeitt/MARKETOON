@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class AplicacaoConfig(AppConfig):
+class StafftoonConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'aplicacao'
+    name = 'stafftoon'
