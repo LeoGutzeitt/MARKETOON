@@ -20,4 +20,4 @@ def cadastro_produto(request):
         
         return redirect('pagina_inicial')
 
-    return render(request, 'cadastro_produto.html')
+    return render(request, 'html.html')
