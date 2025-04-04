@@ -17,3 +17,7 @@ def cadastro_produto(request):
                                               preco=preco,
                                               data=data
                                               )
+        
+        return redirect('pagina_inicial')
+
+    return render(request, 'cadastro_produto.html')
