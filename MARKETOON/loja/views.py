@@ -2,6 +2,9 @@ from django.shortcuts import render,redirect
 from loja.models import func_registrar_produto
 
 # Create your views here.
+def home(request):
+    return render(request, 'loja/home.html')
+
 def cadastro_produto(request):
     if request.method == "POST":
         nome = request.POST.get("nome")
