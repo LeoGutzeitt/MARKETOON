@@ -9,11 +9,13 @@ def cadastro_produto(request):
         telefone = request.POST.get("telefone")
         descricao = request.POST.get("descricao")
         preco = request.POST.get("preco")
+        imagem = request.FILES.get("imagem")
         func_registrar_produto.objects.create(nome=nome,
                                               email=email,
                                               telefone=telefone,
                                               descricao=descricao,
-                                              preco=preco
+                                              preco=preco,
+                                              imagem=imagem
                                               )
         
         return redirect('pagina_inicial')
