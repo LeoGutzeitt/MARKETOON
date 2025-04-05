@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de Desejos</title>
+  <link rel="stylesheet" href="{% static 'css/wishlist.css' %}">
+</head>
+<body>
+
+  <!-- TOPO -->
+  <header class="header">
+    <div class="header-left">
+      <div class="logo-placeholder"></div>
+      <a href="/" class="home-link">Home</a>
+    </div>
+    <div class="header-center">
+      LISTA DE DESEJOS
+    </div>
+    <div class="header-right">
+      <div class="user-name">usuário</div>
+      <div class="user-role">comprador</div>
+    </div>
+  </header>
+
+  <!-- FUNDO COM DIVISÃO DIAGONAL -->
+  <div class="content-wrapper">
+    <div class="diagonal-bg"></div>
+
+    <!-- LISTA DE PRODUTOS -->
+    <section class="wishlist-items">
+      {% for produto in wishlist %}
+        <div class="wishlist-card">
+          <div class="image-placeholder"></div>
+          <div class="product-info">
+            <div class="product-name">{{ produto.nome }}</div>
+            <div class="product-price">R$ {{ produto.preco }}</div>
+          </div>
+          <div class="card-actions">
+            <form method="post" action="{% url 'remover_wishlist' produto.id %}">
+              {% csrf_token %}
+              <button class="action-btn">🗑️</button>
+            </form>
+            <form method="post" action="{% url 'adicionar_carrinho' produto.id %}">
+              {% csrf_token %}
+              <button class="action-btn">➕</button>
+            </form>
+          </div>
+        </div>
+      {% empty %}
+        <p>Nenhum item na lista de desejos.</p>
+      {% endfor %}
+    </section>
+
+    <!-- CAIXA DE CONFIRMAÇÃO -->
+    <aside class="confirm-box">
+      <p>Limpar a lista de desejos?</p>
+      <form method="post" action="{% url 'limpar_wishlist' %}">
+        {% csrf_token %}
+        <button class="btn-confirm yes">sim</button>
+        <button type="button" class="btn-confirm no" onclick="window.location.reload()">não</button>
+      </form>
+    </aside>
+
+    <!-- CHECKOUT -->
+    <div class="checkout-container">
+      <a href="{% url 'checkout' %}" class="checkout-btn">checkout</a>
+    </div>
+  </div>
+
+</body>
+</html>

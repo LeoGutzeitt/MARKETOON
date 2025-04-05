@@ -20,12 +20,19 @@ from loja.views import cadastro_produto,home
 from django.conf import settings
 from django.conf.urls.static import static
 from loja import views
+from loja.views import wishlist_view, remover_wishlist, adicionar_wishlist, limpar_wishlist, checkout_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('cadastro/',cadastro_produto, name='cadastro'),
     path('', home, name='home'),
     path('produto/<int:id>/', views.detalhes_produto, name='detalhes_produto'),
+    path('wishlist/', wishlist_view, name='wishlist'),
+    path('wishlist/remover/<int:produto_id>/', remover_wishlist, name='remover_wishlist'),
+    path('wishlist/adicionar/<int:produto_id>/', adicionar_wishlist, name='adicionar_wishlist'),
+    path('wishlist/limpar/', limpar_wishlist, name='limpar_wishlist'),
+    path('checkout/', checkout_view, name='checkout'),  
 ]
+
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
