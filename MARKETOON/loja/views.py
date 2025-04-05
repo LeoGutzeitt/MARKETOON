@@ -33,7 +33,7 @@ def cadastro_produto(request):
                                               imagem=imagem
                                               )
         
-        return redirect('pagina_inicial')
+        return redirect('/')
 
     return render(request, 'loja/html.html')
 
