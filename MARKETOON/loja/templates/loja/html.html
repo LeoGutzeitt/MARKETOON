@@ -7,7 +7,7 @@
 <body>
     <h1>Cadastro de Produto</h1>
 
-    <form action="" method="POST">
+    <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <label for="nome">Nome:</label><br>
         <input type="text" name="nome" id="nome" required><br><br>
