@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Home - Produtos</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      background-color: #f9f9f9;
+    }
+
+    header, footer {
+      background-color: white;
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .top-controls {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .top-controls input[type="text"] {
+      padding: 8px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      width: 200px;
+    }
+
+    .top-controls button {
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      background: #fff;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .sidebar {
+      width: 220px;
+      background-color: white;
+      padding: 20px;
+      border-right: 1px solid #ddd;
+      height: 100%;
+      box-sizing: border-box;
+    }
+
+    .main {
+      display: flex;
+      padding: 30px;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 30px;
+      flex-grow: 1;
+      padding-left: 30px;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 180px;
+      background-color: #ccc;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .pagination {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .pagination span, .pagination a {
+      margin: 0 5px;
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      text-decoration: none;
+      color: #000;
+    }
+
+    .pagination .current {
+      background-color: black;
+      color: white;
+    }
+
+    footer {
+      justify-content: space-between;
+      border-top: 1px solid #ddd;
+      margin-top: 30px;
+    }
+
+    .support-button {
+      background: black;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="top-controls">
+    <img src="/static/img/logo.png" alt="Logo" width="40" />
+    <a href="/">Home</a>
+    <input type="text" placeholder="Search" />
+    <button>✔ New</button>
+    <button>Price ↑</button>
+    <button>Price ↓</button>
+    <button>Rating</button>
+  </div>
+
+  <div class="top-controls">
+    <a href="/wishlist/"><button>⭐ Wishlist</button></a>
+    <a href="/carrinho/"><button>🛒 Carrinho</button></a>
+    <span>Usuário <small style="color: gray;">comprador</small></span>
+  </div>
+</header>
+
+<div class="main">
+  <aside class="sidebar">
+    <h3>Keywords</h3>
+    <div>
+      <span>Spring ✕</span><br/>
+      <span>Smart ✕</span><br/>
+      <span>Modern ✕</span>
+    </div>
+    <br/>
+    <label><input type="checkbox" checked> promoções<br/><small>preços baixos</small></label><br/>
+    <label><input type="checkbox" checked> direito pleno<br/><small>exclusividade</small></label><br/>
+    <label><input type="checkbox" checked> direito compartilhado<br/><small>todos podem comprar</small></label>
+    
+    <br/><br/>
+    <label>Label<br/>
+      <input type="range" min="0" max="100" />
+    </label>
+    
+    <br/><br/>
+    <strong>Style</strong><br/>
+    <label><input type="checkbox" checked> cartoon</label><br/>
+    <label><input type="checkbox" checked> realismo</label><br/>
+    <label><input type="checkbox" checked> conceito</label>
+  </aside>
+
+  <section class="products-grid">
+    {% for produto in produtos %}
+      <div class="product-card">
+        <a href="{% url 'detalhes_produto' produto.id %}">
+          {% if produto.imagem %}
+            <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}">
+          {% else %}
+            <img src="/static/img/placeholder.png" alt="Sem imagem">
+          {% endif %}
+          <strong>{{ produto.nome }}</strong><br/>
+          R$ {{ produto.preco }}
+        </a>
+      </div>
+    {% endfor %}
+  </section>
+</div>
+
+<div class="pagination">
+  {% if produtos.has_previous %}
+    <a href="?page={{ produtos.previous_page_number }}">← Previous</a>
+  {% endif %}
+
+  {% for num in produtos.paginator.page_range %}
+    {% if produtos.number == num %}
+      <span class="current">{{ num }}</span>
+    {% else %}
+      <a href="?page={{ num }}">{{ num }}</a>
+    {% endif %}
+  {% endfor %}
+
+  {% if produtos.has_next %}
+    <a href="?page={{ produtos.next_page_number }}">Next →</a>
+  {% endif %}
+</div>
+
+<footer>
+  <span>@MarkeTOON - +55 (81) 9 9999-9999</span>
+  <button class="support-button">✔ Fale com o suporte</button>
+</footer>
+
+</body>
+</html>
