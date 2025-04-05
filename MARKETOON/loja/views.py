@@ -1,9 +1,21 @@
 from django.shortcuts import render,redirect
 from loja.models import func_registrar_produto
+from django.core.paginator import Paginator
+from django.shortcuts import render, get_object_or_404
+
 
 # Create your views here.
+def detalhes_produto(request, id):
+    produto = get_object_or_404(func_registrar_produto, id=id)
+    return render(request, 'loja/detalhes_produto.html', {'produto': produto})
+
+
 def home(request):
-    return render(request, 'loja/home.html')
+    lista_produtos = func_registrar_produto.objects.all()
+    paginator = Paginator(lista_produtos, 12)
+    pagina = request.GET.get('page')
+    produtos = paginator.get_page(pagina)
+    return render(request, 'loja/home.html',{'produtos': produtos})
 
 def cadastro_produto(request):
     if request.method == "POST":
@@ -24,5 +36,7 @@ def cadastro_produto(request):
         return redirect('pagina_inicial')
 
     return render(request, 'loja/html.html')
+
+
 
 

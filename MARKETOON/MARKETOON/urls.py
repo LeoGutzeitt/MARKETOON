@@ -19,11 +19,13 @@ from django.urls import path
 from loja.views import cadastro_produto,home
 from django.conf import settings
 from django.conf.urls.static import static
+from loja import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('cadastro/',cadastro_produto, name='cadastro'),
     path('', home, name='home'),
+    path('produto/<int:id>/', views.detalhes_produto, name='detalhes_produto'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
