@@ -136,7 +136,11 @@
   <div class="top-controls">
     <img src="/static/img/logo.png" alt="Logo" width="40" />
     <a href="/">Home</a>
-    <input type="text" placeholder="Search" />
+
+    <form method="get" action="{% url 'home' %}">
+      <input type="text" name="q" placeholder="Buscar produtos..." value="{{ request.GET.q }}">
+    </form>
+
     <button>✔ New</button>
     <button>Price ↑</button>
     <button>Price ↓</button>
@@ -162,12 +166,12 @@
     <label><input type="checkbox" checked> promoções<br/><small>preços baixos</small></label><br/>
     <label><input type="checkbox" checked> direito pleno<br/><small>exclusividade</small></label><br/>
     <label><input type="checkbox" checked> direito compartilhado<br/><small>todos podem comprar</small></label>
-    
+
     <br/><br/>
     <label>Label<br/>
       <input type="range" min="0" max="100" />
     </label>
-    
+
     <br/><br/>
     <strong>Style</strong><br/>
     <label><input type="checkbox" checked> cartoon</label><br/>
