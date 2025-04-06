@@ -68,6 +68,7 @@
       padding: 15px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       text-align: center;
+      position: relative;
     }
 
     .product-card img {
@@ -76,6 +77,22 @@
       background-color: #ccc;
       border-radius: 8px;
       margin-bottom: 10px;
+    }
+
+    .wishlist-add-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: transparent;
+      border: none;
+      font-size: 20px;
+      color: #f4c542;
+      cursor: pointer;
+      z-index: 1;
+    }
+
+    .wishlist-add-btn:hover {
+      transform: scale(1.2);
     }
 
     .pagination {
@@ -161,6 +178,11 @@
   <section class="products-grid">
     {% for produto in produtos %}
       <div class="product-card">
+        <form method="post" action="{% url 'adicionar_wishlist' produto.id %}">
+          {% csrf_token %}
+          <button type="submit" class="wishlist-add-btn" title="Adicionar à Wishlist">⭐</button>
+        </form>
+
         <a href="{% url 'detalhes_produto' produto.id %}">
           {% if produto.imagem %}
             <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}">
