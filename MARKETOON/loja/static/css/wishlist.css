@@ -161,4 +161,18 @@ body {
     border-radius: 8px;
     text-decoration: none;
   }
+  /*-----------------------------------------
+  .wishlist-card {
+    position: relative; /* necessário para posicionamento absoluto da estrela */
+  
+  
+  .wishlist-star {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    font-size: 20px;
+    color: gold;
+    cursor: pointer;
+    z-index: 1;
+  }
   
