@@ -27,44 +27,20 @@ def cadastro_produto(request):
         descricao = request.POST.get("descricao")
         preco = request.POST.get("preco")
         imagem = request.FILES.get("imagem")
-        func_registrar_produto.objects.create(nome=nome,
-                                              email=email,
-                                              telefone=telefone,
-                                              descricao=descricao,
-                                              preco=preco,
-                                              imagem=imagem
-                                              )
         
-        return redirect('/')
-
-    return render(request, 'loja/html.html')
-
-
-
-
-def home(request):
-    produtos = func_registrar_produto.objects.all()
-    return render(request, 'loja/home.html', {'produtos': produtos})
-
-# Cadastro de produto (POST)
-def cadastro_produto(request):
-    if request.method == "POST":
-        nome = request.POST.get("nome")
-        email = request.POST.get("email")
-        telefone = request.POST.get("telefone")
-        descricao = request.POST.get("descricao")
-        preco = request.POST.get("preco")
-        data = request.POST.get("data")
         func_registrar_produto.objects.create(
             nome=nome,
             email=email,
             telefone=telefone,
             descricao=descricao,
             preco=preco,
-            data=data
+            imagem=imagem
         )
-        return redirect('home')
-    return render(request, 'loja/cadastro.html')
+        
+        return redirect('/')
+
+    return render(request, 'loja/html.html')
+
 
 # Página de detalhes do produto
 def detalhes_produto(request, id):
