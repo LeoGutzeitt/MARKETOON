@@ -42,48 +42,46 @@ def cadastro_produto(request):
     return render(request, 'loja/html.html')
 
 
-# Página de detalhes do produto
-def detalhes_produto(request, id):
-    produto = get_object_or_404(func_registrar_produto, id=id)
-    return render(request, 'loja/detalhes_produto.html', {'produto': produto})
 
-
-##---------------------------------------whishlist
-
-# Página da wishlist (sem usuário)
 def wishlist_view(request):
-    itens = Wishlist.objects.all()
-    produtos = [item.produto for item in itens]
+    wishlist_ids = request.session.get('wishlist', [])
+    produtos = func_registrar_produto.objects.filter(id__in=wishlist_ids)
     return render(request, 'loja/wishlist.html', {'wishlist': produtos})
 
-@csrf_exempt
-def adicionar_wishlist(request, produto_id):
-    produto = get_object_or_404(func_registrar_produto, id=produto_id)
-    Wishlist.objects.get_or_create(produto=produto)
-    return redirect('wishlist')
-
-@csrf_exempt
-def remover_wishlist(request, produto_id):
-    produto = get_object_or_404(func_registrar_produto, id=produto_id)
-    Wishlist.objects.filter(produto=produto).delete()
-    return redirect('wishlist')
-
-@csrf_exempt
-def limpar_wishlist(request):
-    if request.method == 'POST':
-        Wishlist.objects.all().delete()
-    return redirect('wishlist')
-
-def checkout_view(request):
-    return render(request, 'loja/checkout.html')
 
 def adicionar_wishlist(request, produto_id):
     produto = get_object_or_404(func_registrar_produto, id=produto_id)
-
     wishlist = request.session.get('wishlist', [])
 
     if produto_id not in wishlist:
         wishlist.append(produto_id)
         request.session['wishlist'] = wishlist
 
-    return redirect('home')
+    return redirect('wishlist')
+
+
+def remover_wishlist(request, produto_id):
+    wishlist = request.session.get('wishlist', [])
+
+    if produto_id in wishlist:
+        wishlist.remove(produto_id)
+        request.session['wishlist'] = wishlist
+
+    return redirect('wishlist')
+
+
+def limpar_wishlist(request):
+    if request.method == 'POST':
+        request.session['wishlist'] = []
+    return redirect('wishlist')
+
+def checkout_view(request):
+    return render(request, 'loja/checkout.html')
+
+def adicionar_carrinho(request, produto_id):
+    produto = get_object_or_404(func_registrar_produto, id=produto_id)
+    carrinho = request.session.get('carrinho', [])
+    if produto_id not in carrinho:
+        carrinho.append(produto_id)
+        request.session['carrinho'] = carrinho
+    return redirect('wishlist') 
