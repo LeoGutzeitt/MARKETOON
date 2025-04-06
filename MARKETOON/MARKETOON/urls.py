@@ -32,6 +32,9 @@ urlpatterns = [
     path('wishlist/adicionar/<int:produto_id>/', adicionar_wishlist, name='adicionar_wishlist'),
     path('wishlist/limpar/', limpar_wishlist, name='limpar_wishlist'),
     path('checkout/', checkout_view, name='checkout'),  
+    path('wishlist/adicionar/<int:produto_id>/', views.adicionar_wishlist, name='adicionar_wishlist'),
+
+    
 ]
 
 if settings.DEBUG:

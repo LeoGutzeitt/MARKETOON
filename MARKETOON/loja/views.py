@@ -101,3 +101,10 @@ def limpar_wishlist(request):
 def checkout_view(request):
     return render(request, 'loja/checkout.html')
 
+def adicionar_wishlist(request, produto_id):
+    produto = get_object_or_404(func_registrar_produto, id=produto_id)
+    
+
+    Wishlist.objects.get_or_create(usuario=request.user, produto=produto)
+
+    return redirect('home') 
