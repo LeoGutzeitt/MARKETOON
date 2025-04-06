@@ -103,8 +103,11 @@ def checkout_view(request):
 
 def adicionar_wishlist(request, produto_id):
     produto = get_object_or_404(func_registrar_produto, id=produto_id)
-    
 
-    Wishlist.objects.get_or_create(usuario=request.user, produto=produto)
+    wishlist = request.session.get('wishlist', [])
 
-    return redirect('home') 
+    if produto_id not in wishlist:
+        wishlist.append(produto_id)
+        request.session['wishlist'] = wishlist
+
+    return redirect('home')
