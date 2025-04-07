@@ -35,9 +35,13 @@ O _Marketoon_ é um sistema de controle de vendas que tem como objetivo auxiliar
 ### SCREENCAST
 
 
-kickoff/entrega01:
+#### Entrega 1:
+
 [🎬 Clique aqui para assistir o vídeo](https://youtu.be/e2Vaw_EXg98?si=TZECz9bFMMTPF_FV)
-entrega 02:
+
+#### Entrega 2:
+
+[🎬 Clique aqui para assistir o vídeo](https://youtu.be/M-0ZOZgdY10)
 
 
 ## RELATANDO A PROGRAMAÇÃO EM PARES:
