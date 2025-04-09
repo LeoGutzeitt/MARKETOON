@@ -23,8 +23,8 @@ SECRET_KEY = os.getenv("SECRET_KEY", "chave-insegura-para-dev")
 
 DEBUG = os.getenv("DEBUG", "True").lower() in ["true", "1", "t"]
 
-ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['https://marketoon.onrender.com']
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "*").split(",")
+CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS", "").split(",")
 
 INSTALLED_APPS = [
     "django.contrib.admin",
