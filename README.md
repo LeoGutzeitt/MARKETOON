@@ -49,7 +49,7 @@ O _Marketoon_ é um sistema de controle de vendas que tem como objetivo auxiliar
 ````
 https://docs.google.com/document/d/1jK9qDib2bew-SsQ6mmEFKYu8REy3YnvByAwQbvLMp5Q/edit?tab=t.0
 ````
-## link render:
+## link azure:
 ````
 https://marketoon-brg8bfchdwe9hndr.brazilsouth-01.azurewebsites.net/
 ````
