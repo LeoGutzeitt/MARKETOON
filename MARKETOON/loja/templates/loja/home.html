@@ -196,6 +196,11 @@
           <strong>{{ produto.nome }}</strong><br/>
           R$ {{ produto.preco }}
         </a>
+
+        <form method="post" action="{% url 'adicionar_carrinho' produto.id %}">
+          {% csrf_token %}
+          <button type="submit">🛒 Comprar</button>
+        </form>
       </div>
     {% endfor %}
   </section>

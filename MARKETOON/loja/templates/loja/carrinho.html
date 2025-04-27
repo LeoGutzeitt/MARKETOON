@@ -10,6 +10,7 @@
     {% if mensagem %}
         <p>{{ mensagem }}</p>
     {% endif %}
+    
     <ul>
         {% for produto in produtos %}
             <li>
@@ -17,11 +18,17 @@
                 <a href="{% url 'remover_carrinho' produto.id %}">Remover</a>
             </li>
         {% empty %}
-    
+            <li>Seu carrinho está vazio.</li>
         {% endfor %}
     </ul>
+
     <a href="{% url 'home' %}"><button>Home</button></a> 
-    <a href="{% url 'limpar_carrinho' %}"><button>Limpar Carrinho</button></a>
     <a href="{% url 'produtos' %}"><button>Adicionar Mais Itens</button></a> 
+
+    <form method="post" action="{% url 'limpar_carrinho' %}">
+        {% csrf_token %}
+        <button type="submit">Limpar Carrinho</button>
+    </form>
 </body>
 </html>
+
