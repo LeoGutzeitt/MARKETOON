@@ -95,3 +95,6 @@ def adicionar_carrinho(request, produto_id):
         carrinho.append(produto_id)
         request.session['carrinho'] = carrinho
     return redirect('wishlist') 
+
+def carrinho(request):
+    return render(request, 'loja/carrinho.html')
