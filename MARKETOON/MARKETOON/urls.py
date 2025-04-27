@@ -25,7 +25,6 @@ from loja.views import wishlist_view, remover_wishlist, adicionar_wishlist, limp
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('cadastro/',cadastro_produto, name='cadastro'),
-    path('', home, name='home'),
     path('produto/<int:id>/', views.detalhes_produto, name='detalhes_produto'),
     path('wishlist/', wishlist_view, name='wishlist'),
     path('wishlist/remover/<int:produto_id>/', remover_wishlist, name='remover_wishlist'),
@@ -35,7 +34,11 @@ urlpatterns = [
     path('', views.home, name='home'),  
     path('wishlist/adicionar/<int:produto_id>/', views.adicionar_wishlist, name='adicionar_wishlist'),
     path('adicionar-carrinho/<int:produto_id>/', views.adicionar_carrinho, name='adicionar_carrinho'),
-    path('carrinho/', views.carrinho, name='carrinho'),
+    path('carrinho/', views.carrinho, name='carrinho'),  
+    path('remover-carrinho/<int:produto_id>/', views.remover_carrinho, name='remover_carrinho'),  
+    path('limpar-carrinho/', views.limpar_carrinho, name='limpar_carrinho'),
+    path('produtos/', views.produtos, name='produtos'),  
+
 
     
 ]

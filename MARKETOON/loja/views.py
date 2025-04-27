@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Wishlist
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
+from django.http import HttpResponse
 
 
 # Create your views here.
@@ -88,13 +89,34 @@ def limpar_wishlist(request):
 def checkout_view(request):
     return render(request, 'loja/checkout.html')
 
+def carrinho(request):
+    carrinho_ids = request.session.get('carrinho', [])
+    produtos = func_registrar_produto.objects.filter(id__in=carrinho_ids)
+    if not produtos:
+        return render(request, 'loja/carrinho.html', {'produtos': produtos, 'mensagem': 'Seu carrinho está vazio.'})
+
+    return render(request, 'loja/carrinho.html', {'produtos': produtos})
+
 def adicionar_carrinho(request, produto_id):
     produto = get_object_or_404(func_registrar_produto, id=produto_id)
     carrinho = request.session.get('carrinho', [])
     if produto_id not in carrinho:
         carrinho.append(produto_id)
         request.session['carrinho'] = carrinho
-    return redirect('wishlist') 
+    return redirect('carrinho')
 
-def carrinho(request):
-    return render(request, 'loja/carrinho.html')
+def remover_carrinho(request, produto_id):
+    carrinho = request.session.get('carrinho', [])
+    if produto_id in carrinho:
+        carrinho.remove(produto_id)
+        request.session['carrinho'] = carrinho
+    return redirect('carrinho')
+
+def limpar_carrinho(request):
+    if request.method == 'POST':
+        request.session['carrinho'] = []
+    return redirect('carrinho') 
+
+def produtos(request):
+    produtos = func_registrar_produto.objects.all()  
+    return render(request, 'loja/produtos.html', {'produtos': produtos})

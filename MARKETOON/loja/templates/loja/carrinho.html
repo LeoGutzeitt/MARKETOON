@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho de Compras</title>
+</head>
+<body>
+    <h1>Carrinho</h1>
+    {% if mensagem %}
+        <p>{{ mensagem }}</p>
+    {% endif %}
+    <ul>
+        {% for produto in produtos %}
+            <li>
+                {{ produto.nome }} - R$ {{ produto.preco }} - Quantidade: 1  
+                <a href="{% url 'remover_carrinho' produto.id %}">Remover</a>
+            </li>
+        {% empty %}
+    
+        {% endfor %}
+    </ul>
+    <a href="{% url 'home' %}"><button>Home</button></a> 
+    <a href="{% url 'limpar_carrinho' %}"><button>Limpar Carrinho</button></a>
+    <a href="{% url 'produtos' %}"><button>Adicionar Mais Itens</button></a> 
+</body>
+</html>
