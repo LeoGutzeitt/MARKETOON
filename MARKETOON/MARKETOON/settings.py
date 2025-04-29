@@ -17,16 +17,19 @@ import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Carrega variáveis de ambiente do .env
 load_dotenv(BASE_DIR / ".env")
 
+# Segurança
 SECRET_KEY = os.getenv("SECRET_KEY", "chave-insegura-para-dev")
+DEBUG = os.getenv("DEBUG", "false").lower() in ["true", "1", "t"]
+ALLOWED_HOSTS = [
+    'marketoon-cartoons-dagresgqa7afejhx.brazilsouth-01.azurewebsites.net',
+    '127.0.0.1',
+    'localhost'
+]
 
-DEBUG = os.getenv("DEBUG", "false").lower() in ["false", "1", "f"]
-
-ALLOWED_HOSTS = ['marketoon-cartoons-dagresgqa7afejhx.brazilsouth-01.azurewebsites.net', '127.0.0.1']
-
-
-
+# Aplicações
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -38,6 +41,7 @@ INSTALLED_APPS = [
     "whitenoise.runserver_nostatic",
 ]
 
+# Middlewares
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
@@ -49,12 +53,13 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+# URLs e Templates
 ROOT_URLCONF = "MARKETOON.urls"
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / 'templates',],
+        "DIRS": [BASE_DIR / 'templates'],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -69,6 +74,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "MARKETOON.wsgi.application"
 
+# Banco de dados
 db_url = os.getenv("DATABASE_URL", f"sqlite:///{BASE_DIR / 'db.sqlite3'}")
 USE_SQLITE = db_url.startswith("sqlite")
 
@@ -80,6 +86,7 @@ DATABASES = {
     )
 }
 
+# Validações de senha
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
@@ -87,23 +94,29 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
-LANGUAGE_CODE = "en-us"
-TIME_ZONE = "UTC"
+# Internacionalização
+LANGUAGE_CODE = "pt-br"
+TIME_ZONE = "America/Sao_Paulo"
 USE_I18N = True
 USE_TZ = True
 
+# Arquivos estáticos
 STATIC_URL = os.getenv("DJANGO_STATIC_URL", "/static/")
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
 STATICFILES_DIRS = [BASE_DIR / "static"]
-os.makedirs(BASE_DIR / "static", exist_ok=True)
 
+# Garante que diretório estático exista
+os.makedirs(STATICFILES_DIRS[0], exist_ok=True)
+
+# Arquivos de mídia
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
+# Campo padrão para chaves primárias
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# Redirecionamento HTTPS
 SECURE_SSL_REDIRECT = os.getenv("SECURE_SSL_REDIRECT", "0").lower() in ["true", "1", "t"]
 if SECURE_SSL_REDIRECT:
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
