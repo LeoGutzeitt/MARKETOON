@@ -21,10 +21,10 @@ load_dotenv(BASE_DIR / ".env")
 
 SECRET_KEY = os.getenv("SECRET_KEY", "chave-insegura-para-dev")
 
-DEBUG = os.getenv("DEBUG", "True").lower() in ["true", "1", "t"]
+DEBUG = os.getenv("DEBUG", "false").lower() in ["false", "1", "f"]
 
 ALLOWED_HOSTS = ['marketoon-cartoons-dagresgqa7afejhx.brazilsouth-01.azurewebsites.net', '127.0.0.1']
-CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000','http://localhost:8000',]
+
 
 
 INSTALLED_APPS = [
