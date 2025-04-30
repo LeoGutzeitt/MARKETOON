@@ -21,7 +21,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.13' # Python 3.13 ainda não estável nos ambientes de produção
+          python-version: '3.11'
 
       - name: Install dependencies
         run: |
@@ -64,7 +64,6 @@ jobs:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_AE658F261A0A4030AE6BFACF0AACE6E7 }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_D76B02C9A20C43D3A4504618AABE315F }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_CEFED12303684C378E5A1D25F10102FA }}
-          allow-no-subscriptions: true
 
 
       - name: Deploy to Azure Web App
