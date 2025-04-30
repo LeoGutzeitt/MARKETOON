@@ -21,7 +21,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10' # Python 3.13 ainda não estável nos ambientes de produção
+          python-version: '3.13' # Python 3.13 ainda não estável nos ambientes de produção
 
       - name: Install dependencies
         run: |
