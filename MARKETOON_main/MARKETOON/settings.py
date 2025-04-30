@@ -25,8 +25,8 @@ SECRET_KEY = os.getenv("SECRET_KEY", "chave-insegura-para-dev")
 DEBUG = os.getenv("DEBUG", "false").lower() in ["true", "1", "t"]
 ALLOWED_HOSTS = [
     'marketoon-cartoons-dagresgqa7afejhx.brazilsouth-01.azurewebsites.net',
-    '127.0.0.1',
-    'localhost'
+    '127.0.0.1'
+    ##'localhost'
 ]
 
 # Aplicações
