@@ -202,6 +202,10 @@
           <button type="submit">🛒 Comprar</button>
         </form>
       </div>
+    {% empty %}
+      <div class="no-results-message" style="grid-column: 1 / -1; text-align: center; font-style: italic; color: gray;">
+        Nenhum produto encontrado.
+      </div>
     {% endfor %}
   </section>
 </div>
