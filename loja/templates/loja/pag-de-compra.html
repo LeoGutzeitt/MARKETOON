@@ -4,69 +4,94 @@
   <meta charset="UTF-8">
   <title>Planos - MarkeTOON</title>
   <style>
-    body {
+    * {
+      box-sizing: border-box;
       margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
       font-family: sans-serif;
       background: #fff;
       color: #000;
     }
+
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
     header, footer {
+      flex-shrink: 0;
+    }
+
+    .main {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 12px 20px;
       border-bottom: 1px solid #ddd;
     }
+
     .header-left {
       display: flex;
       align-items: center;
       gap: 16px;
     }
+
     .header-right {
       display: flex;
       align-items: center;
       gap: 20px;
     }
+
     .search-box {
-        position: relative;
-        display: flex;
-        align-items: center;
-      }
-      
-      .search-box input {
-        padding: 8px 32px 8px 12px;
-        border-radius: 20px;
-        border: 1px solid #aaa;
-        font-size: 14px;
-        width: 180px;
-        outline: none;
-      }
-      
-      .search-box .icon {
-        position: absolute;
-        right: 10px;
-        color: #666;
-        cursor: pointer;
-      }
-      
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-box input {
+      padding: 8px 32px 8px 12px;
+      border-radius: 20px;
+      border: 1px solid #aaa;
+      font-size: 14px;
+      width: 180px;
+      outline: none;
+    }
+
+    .search-box .icon {
+      position: absolute;
+      right: 10px;
+      color: #666;
+      cursor: pointer;
+    }
+
     .user {
       display: flex;
       align-items: center;
       gap: 6px;
       color: #aaa;
     }
+
     .circle {
       width: 16px;
       height: 16px;
       border-radius: 50%;
       background: #ccc;
     }
-    .main {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      padding: 40px;
-    }
+
     .card {
       width: 220px;
       border: 1px solid #ddd;
@@ -74,20 +99,25 @@
       box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
       padding: 32px;
       text-align: center;
+      background: #fff;
     }
+
     .card h2 {
       font-size: 18px;
       font-weight: bold;
     }
+
     .price {
       font-size: 28px;
       font-weight: bold;
       margin-top: 8px;
     }
+
     .price small {
       font-size: 14px;
       font-weight: normal;
     }
+
     .card ul {
       text-align: left;
       margin-top: 12px;
@@ -95,9 +125,11 @@
       padding-left: 0;
       list-style: none;
     }
+
     .card ul li::before {
       content: "• ";
     }
+
     .btn {
       margin-top: 12px;
       padding: 6px 12px;
@@ -106,14 +138,17 @@
       border: none;
       border-radius: 4px;
       cursor: pointer;
+      text-transform: lowercase;
     }
+
     .placeholder {
-      width: 200px;
+      width: 220px;
       height: 120px;
       background: repeating-conic-gradient(#ddd 0% 25%, transparent 0% 50%) 50% / 20px 20px;
       border-radius: 8px;
       box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
     }
+
     .autor-box {
       width: 220px;
       border: 1px solid #ddd;
@@ -121,28 +156,43 @@
       padding: 16px;
       font-size: 14px;
     }
+
     .autor-box p {
       margin: 4px 0;
     }
+
     .autor-box .title {
-      text-transform: uppercase;
+      text-transform: lowercase;
       font-size: 12px;
       color: #888;
     }
+
     .autor-box .name {
       font-weight: bold;
+      text-transform: uppercase;
     }
+
     .autor-item {
       margin-top: 12px;
       border-top: 1px solid #eee;
       padding-top: 8px;
     }
-    .footer {
+
+    .autor-item p {
+      display: flex;
       justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       font-size: 13px;
       padding: 12px 20px;
       border-top: 1px solid #ddd;
     }
+
     .support-btn {
       background: #111;
       color: #fff;
@@ -151,13 +201,16 @@
       display: flex;
       align-items: center;
       gap: 6px;
+      font-size: 14px;
     }
+
     .circles {
       display: flex;
       margin-top: 8px;
       gap: 4px;
       justify-content: center;
     }
+
     .circles span {
       width: 16px;
       height: 16px;
@@ -165,34 +218,44 @@
       background: #ddd;
       display: inline-block;
     }
+
+    .circles span:last-child {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+      background: #ddd;
+    }
+
     .xgroup {
       display: flex;
       gap: 4px;
       margin-top: 12px;
       justify-content: center;
     }
+
     .xgroup span {
       display: inline-block;
       padding: 2px 4px;
       background: #fff;
       border: 1px solid #000;
-      font-size: 10px;
+      font-size: 12px;
     }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
   <header>
     <div class="header-left">
       <div style="width: 40px; height: 40px; background: #ddd;"></div>
       <a href="#" style="text-decoration: underline;">Home</a>
     </div>
     <div class="header-right">
-        <div class="search-box">
-            <input type="text" placeholder="Search">
-            <span class="icon">🔍</span>
-          </div>          
+      <div class="search-box">
+        <input type="text" placeholder="Search">
+        <span class="icon">🔍</span>
+      </div>
       <div style="display: flex; gap: 12px;">
         <div style="text-align: center;">
           <div>⭐</div><div style="font-size: 12px;">wishlist</div>
@@ -208,7 +271,6 @@
     </div>
   </header>
 
-  <!-- Main -->
   <div class="main">
     <!-- Plano 1 -->
     <div class="card">
@@ -220,13 +282,12 @@
         <li>List item</li>
         <li>List item</li>
       </ul>
-      <button class="btn">Direito compartilhado</button>
+      <button id="btn-compartilhado" class="btn">Direito compartilhado</button>
       <div class="circles">
-        <span></span><span></span><span></span><span style="font-size: 12px;">+1</span>
+        <span></span><span></span><span></span><span>+1</span>
       </div>
     </div>
 
-    <!-- Plano 2 -->
     <div class="card">
       <h2>davipagaio</h2>
       <div class="price">$599<small>,00</small></div>
@@ -237,41 +298,54 @@
         <li>List item</li>
         <li>List item</li>
       </ul>
-      <button class="btn">direito pleno</button>
+      <button id="btn-pleno" class="btn">direito pleno</button>
       <div class="xgroup">
         <span>❌</span><span>❌</span><span>❌</span><span>❌</span>
       </div>
     </div>
 
-    <!-- Placeholder imagem -->
     <div class="placeholder"></div>
 
-    <!-- Autor -->
     <div class="autor-box">
       <p class="title">autor</p>
       <p class="name">DAVI OLIVEIRA</p>
 
       <div class="autor-item">
-        <p><strong>⭐ VENDIDO PARA XX USUÁRIOS</strong></p>
+        <p><strong>⭐ VENDIDO PARA XX USUÁRIOS</strong> ⇅A</p>
         <p>Menu description.</p>
       </div>
 
       <div class="autor-item">
-        <p><strong>⭐ Menu Label</strong></p>
+        <p><strong>⭐ Menu Label</strong> ⇅A</p>
         <p>Menu description.</p>
       </div>
 
       <div class="autor-item">
-        <p><strong>⭐ Menu Label</strong></p>
+        <p><strong>⭐ Menu Label</strong> ⇅A</p>
         <p>Menu description.</p>
       </div>
     </div>
   </div>
 
-  <!-- Footer -->
   <footer class="footer">
     <p>@MarkeTOON - +55 (81) 9 9999-9999</p>
     <button class="support-btn">✔ Fale com o suporte</button>
   </footer>
+
+  <script>
+    const btnPleno = document.getElementById("btn-pleno");
+    const btnCompartilhado = document.getElementById("btn-compartilhado");
+  
+    btnPleno.addEventListener("click", () => {
+      btnCompartilhado.disabled = true;
+      btnCompartilhado.style.opacity = 0.5; // visualmente desativado
+    });
+  
+    btnCompartilhado.addEventListener("click", () => {
+      btnPleno.disabled = true;
+      btnPleno.style.opacity = 0.5;
+    });
+  </script>
+  
 </body>
 </html>
