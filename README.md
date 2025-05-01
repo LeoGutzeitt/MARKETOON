@@ -24,7 +24,7 @@ O _Marketoon_ é um sistema de controle de vendas que tem como objetivo auxiliar
 ![Sprint 1](/src/backlog_jira.png)
 
 ### Sprint 2
-![Sprint 2](https://github.com/user-attachments/assets/2aa7d246-4291-47bc-a5af-8eee36e68984)
+![Sprint 2](https://github.com/user-attachments/assets/87364b1b-cf19-49fe-98cc-332ad25986b4)
 
 ### Link do JIRA
 - ***[Acessar o Jira](https://cesar-fds-mrktn.atlassian.net/jira/software/projects/A87/boards/1?atlOrigin=eyJpIjoiYTMwMmU5YTcxNWU5NDVjODg2YzFiZjZmZmE2YmRlMDMiLCJwIjoiaiJ9)***
