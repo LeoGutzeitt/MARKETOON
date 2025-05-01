@@ -52,7 +52,7 @@ https://docs.google.com/document/d/1jK9qDib2bew-SsQ6mmEFKYu8REy3YnvByAwQbvLMp5Q/
 ````
 ## ☁️ Link Azure:
 ````
-https://marketoon-brg8bfchdwe9hndr.brazilsouth-01.azurewebsites.net/
+https://marketoon-cartoons.azurewebsites.net/
 ````
 
 ## 🎬 Screencast
@@ -72,6 +72,6 @@ https://marketoon-brg8bfchdwe9hndr.brazilsouth-01.azurewebsites.net/
 
 - lorem
 - lorem
-- lorem
+
 
 </details>
