@@ -7,11 +7,11 @@
     body {
       font-family: sans-serif;
       margin: 0;
-      background-color: #f9f9f9;
+      background-color:rgb(255, 255, 255);
     }
 
     header, footer {
-      background-color: white;
+      background-color: rgb(3, 200, 235);
       padding: 15px 30px;
       display: flex;
       align-items: center;
@@ -35,14 +35,14 @@
     .top-controls button {
       padding: 8px 12px;
       border: 1px solid #ccc;
-      background: #fff;
+      background: rgb(212, 228, 255);
       border-radius: 8px;
       cursor: pointer;
     }
 
     .sidebar {
       width: 220px;
-      background-color: white;
+      background-color: rgb(255, 255, 255);
       padding: 20px;
       border-right: 1px solid #ddd;
       height: 100%;
@@ -63,7 +63,7 @@
     }
 
     .product-card {
-      background: white;
+      background: rgb(207, 229, 233);
       border-radius: 10px;
       padding: 15px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -144,7 +144,7 @@
     <button>✔ New</button>
     <button>Price ↑</button>
     <button>Price ↓</button>
-    <button>Rating</button>
+    <a href="/cadastro/"><button>artist publish</button></a>
   </div>
 
   <div class="top-controls">
@@ -199,8 +199,11 @@
 
         <form method="post" action="{% url 'adicionar_carrinho' produto.id %}">
           {% csrf_token %}
-          <button type="submit">🛒 Comprar</button>
+          <button type="submit">🛒 adicionar ao carrinho</button>
         </form>
+
+        <a href="{% url 'pagina_de_compra' produto.id %}">Comprar</a>
+        
       </div>
     {% empty %}
       <div class="no-results-message" style="grid-column: 1 / -1; text-align: center; font-style: italic; color: gray;">
@@ -230,8 +233,11 @@
 
 <footer>
   <span>@MarkeTOON - +55 (81) 9 9999-9999</span>
-  <button class="support-button">✔ Fale com o suporte</button>
+  <a href="{% url 'suporte' %}">
+    <button class="support-button">✔ Fale com o suporte</button>
+  </a>
 </footer>
+
 
 </body>
 </html>

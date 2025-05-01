@@ -1,35 +1,195 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrinho de Compras</title>
+  <meta charset="UTF-8" />
+  <title>Carrinho de Compras</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      background-color: #f9f9f9;
+      height: 100%;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header, footer {
+      background-color: white;
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #ddd;
+    }
+
+    main {
+      flex: 1;
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 28px;
+    }
+
+    .carrinho-container {
+      width: 100%;
+      max-width: 800px;
+      background-color: white;
+      padding: 20px 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      flex-grow: 1;
+    }
+
+    .mensagem {
+      text-align: center;
+      color: green;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    li:last-child {
+      border-bottom: none;
+    }
+
+    li a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    li a:hover {
+      text-decoration: underline;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 10px 15px;
+      font-size: 15px;
+      background-color: #000;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #333;
+    }
+
+    a button {
+      background-color: #007bff;
+    }
+
+    a button:hover {
+      background-color: #0056b3;
+    }
+
+    footer {
+      justify-content: space-between;
+      border-top: 1px solid #ddd;
+      margin-top: auto;
+    }
+
+    .support-button {
+      background: black;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-    <h1>Carrinho</h1>
+
+<header>
+  <div class="top-controls">
+    <img src="/static/img/logo.png" alt="Logo" width="40" />
+    <a href="/">Home</a>
+    <a href="/produtos/">Produtos</a>
+  </div>
+
+  <div class="top-controls">
+    <a href="/wishlist/"><button>⭐ Wishlist</button></a>
+    <a href="/carrinho/"><button>🛒 Carrinho</button></a>
+    <span>Usuário <small style="color: gray;">comprador</small></span>
+  </div>
+</header>
+
+<main>
+  <h1>Carrinho</h1>
+  <div class="carrinho-container">
     {% if mensagem %}
-        <p>{{ mensagem }}</p>
+      <p class="mensagem">{{ mensagem }}</p>
     {% endif %}
-    
+
     <ul>
-        {% for produto in produtos %}
-            <li>
-                {{ produto.nome }} - R$ {{ produto.preco }} - Quantidade: 1  
-                <a href="{% url 'remover_carrinho' produto.id %}">Remover</a>
-            </li>
-        {% empty %}
-            <li>Seu carrinho está vazio.</li>
-        {% endfor %}
+      {% for produto in produtos %}
+        <li>
+          <span>{{ produto.nome }} - R$ {{ produto.preco }} - Quantidade: 1</span>
+          <a href="{% url 'pagina_de_compra' produto.id %}">Comprar</a> <a href="{% url 'remover_carrinho' produto.id %}">Remover</a>
+        </li>
+      {% empty %}
+        <li>Seu carrinho está vazio.</li>
+      {% endfor %}
     </ul>
 
-    <a href="{% url 'home' %}"><button>Home</button></a> 
-    <a href="{% url 'produtos' %}"><button>Adicionar Mais Itens</button></a> 
+    <div class="buttons">
+      <a href="{% url 'home' %}"><button>Home</button></a>
+      <a href="{% url 'produtos' %}"><button>Adicionar Mais Itens</button></a>
 
-    <form method="post" action="{% url 'limpar_carrinho' %}">
+      <form method="post" action="{% url 'limpar_carrinho' %}" style="display: inline;">
         {% csrf_token %}
         <button type="submit">Limpar Carrinho</button>
-    </form>
-    <a href="{% url 'checkout' %}"><button>Finalizar Compra</button></a>
+      </form>
+
+      
+    </div>
+  </div>
+</main>
+
+<footer>
+  <span>@MarkeTOON - +55 (81) 9 9999-9999</span>
+  <a href="{% url 'suporte' %}">
+    <button class="support-button">✔ Fale com o suporte</button>
+  </a>
+</footer>
+
+
 </body>
 </html>
-

@@ -1,0 +1,15 @@
+{
+  "name": "marketoon",
+  "version": "1.0.0",
+  "description": "![texto](/src/logo-marketoon500-420.png)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cypress": "^14.3.2"
+  }
+}
+
