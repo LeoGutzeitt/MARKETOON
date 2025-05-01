@@ -1,4 +1,3 @@
-from django.shortcuts import render,redirect
 from loja.models import func_registrar_produto
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
