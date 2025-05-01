@@ -71,7 +71,7 @@ https://marketoon-cartoons.azurewebsites.net/
 <h3>Entrega 3</h3>
 
 - lorem
-- lorem
+- [Clique aqui para assistir o vídeo da demonstração do deploy](https://youtu.be/Gc4gB3FPI6c)
 
 
 </details>
