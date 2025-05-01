@@ -162,7 +162,7 @@
       {% for produto in produtos %}
         <li>
           <span>{{ produto.nome }} - R$ {{ produto.preco }} - Quantidade: 1</span>
-          <a href="{% url 'remover_carrinho' produto.id %}">Remover</a>
+          <a href="{% url 'pagina_de_compra' produto.id %}">Comprar</a> <a href="{% url 'remover_carrinho' produto.id %}">Remover</a>
         </li>
       {% empty %}
         <li>Seu carrinho está vazio.</li>
@@ -178,7 +178,7 @@
         <button type="submit">Limpar Carrinho</button>
       </form>
 
-      <a href="{% url 'checkout' %}"><button>Finalizar Compra</button></a>
+      
     </div>
   </div>
 </main>
