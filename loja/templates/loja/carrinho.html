@@ -29,7 +29,9 @@
         {% csrf_token %}
         <button type="submit">Limpar Carrinho</button>
     </form>
-    <a href="{% url 'checkout' %}"><button>Finalizar Compra</button></a>
+    <a href="{% url 'pagina_de_compra' %}">
+        <button>Finalizar Compra</button>
+      </a>
 </body>
 </html>
 

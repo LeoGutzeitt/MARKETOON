@@ -120,3 +120,20 @@ def limpar_carrinho(request):
 def produtos(request):
     produtos = func_registrar_produto.objects.all()  
     return render(request, 'loja/produtos.html', {'produtos': produtos})
+
+
+def pagina_de_compra(request, produto_id):
+    produto = func_registrar_produto.objects.get(id=produto_id)
+    contexto = {
+        'produto': {
+            'nome': produto.nome,
+            'preco_basico': produto.preco,
+            'preco_pleno': produto.preco,
+            'descricao': produto.descricao,
+            'email': produto.email,
+            'telefone': produto.telefone,
+        }
+    }
+    return render(request, 'loja/pag-de-compra.html', contexto)
+  
+

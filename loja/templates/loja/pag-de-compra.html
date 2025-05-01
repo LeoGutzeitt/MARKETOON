@@ -2,285 +2,147 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Planos - MarkeTOON</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Planos de Compra</title>
   <style>
-    * {
-      box-sizing: border-box;
+    /* Estilos gerais */
+    body {
+      font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
+      background-color: #f4f4f4;
     }
 
-    html, body {
-      height: 100%;
-      font-family: sans-serif;
-      background: #fff;
-      color: #000;
-    }
-
-    body {
-      display: flex;
-      flex-direction: column;
-    }
-
-    header, footer {
-      flex-shrink: 0;
-    }
-
-    .main {
-      flex-grow: 1;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      padding: 40px 20px;
-      max-width: 1200px;
-      margin: auto;
-    }
-
-    header {
+    .container {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      padding: 12px 20px;
-      border-bottom: 1px solid #ddd;
-    }
-
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .header-right {
-      display: flex;
-      align-items: center;
+      padding: 20px;
       gap: 20px;
-    }
-
-    .search-box {
-      position: relative;
-      display: flex;
-      align-items: center;
-    }
-
-    .search-box input {
-      padding: 8px 32px 8px 12px;
-      border-radius: 20px;
-      border: 1px solid #aaa;
-      font-size: 14px;
-      width: 180px;
-      outline: none;
-    }
-
-    .search-box .icon {
-      position: absolute;
-      right: 10px;
-      color: #666;
-      cursor: pointer;
-    }
-
-    .user {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      color: #aaa;
-    }
-
-    .circle {
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background: #ccc;
     }
 
     .card {
-      width: 220px;
-      border: 1px solid #ddd;
-      border-radius: 16px;
-      box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-      padding: 32px;
-      text-align: center;
-      background: #fff;
+      background-color: white;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: 48%;
+      border-radius: 8px;
+      transition: transform 0.3s ease-in-out;
     }
 
-    .card h2 {
-      font-size: 18px;
-      font-weight: bold;
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    h2 {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+      color: #333;
     }
 
     .price {
-      font-size: 28px;
-      font-weight: bold;
-      margin-top: 8px;
+      font-size: 1.2em;
+      color: #1e90ff;
+      margin-bottom: 20px;
     }
 
-    .price small {
-      font-size: 14px;
-      font-weight: normal;
+    ul {
+      padding: 0;
+      list-style-type: none;
+      margin-bottom: 20px;
     }
 
-    .card ul {
-      text-align: left;
-      margin-top: 12px;
-      font-size: 14px;
-      padding-left: 0;
-      list-style: none;
-    }
-
-    .card ul li::before {
-      content: "• ";
+    ul li {
+      font-size: 1em;
+      margin-bottom: 10px;
     }
 
     .btn {
-      margin-top: 12px;
-      padding: 6px 12px;
-      background: #222;
-      color: #fff;
+      background-color: #28a745;
+      color: white;
+      padding: 10px 20px;
       border: none;
-      border-radius: 4px;
+      border-radius: 5px;
       cursor: pointer;
-      text-transform: lowercase;
+      font-size: 1em;
+      transition: background-color 0.3s;
     }
 
-    .placeholder {
-      width: 220px;
-      height: 120px;
-      background: repeating-conic-gradient(#ddd 0% 25%, transparent 0% 50%) 50% / 20px 20px;
-      border-radius: 8px;
-      box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+    .btn:hover {
+      background-color: #218838;
     }
 
-    .autor-box {
-      width: 220px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      padding: 16px;
-      font-size: 14px;
-    }
-
-    .autor-box p {
-      margin: 4px 0;
-    }
-
-    .autor-box .title {
-      text-transform: lowercase;
-      font-size: 12px;
-      color: #888;
-    }
-
-    .autor-box .name {
-      font-weight: bold;
-      text-transform: uppercase;
-    }
-
-    .autor-item {
-      margin-top: 12px;
-      border-top: 1px solid #eee;
-      padding-top: 8px;
-    }
-
-    .autor-item p {
+    .circles, .xgroup {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      margin-top: 15px;
     }
 
-    .footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 13px;
-      padding: 12px 20px;
-      border-top: 1px solid #ddd;
-    }
-
-    .support-btn {
-      background: #111;
-      color: #fff;
-      padding: 6px 12px;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+    .circles span, .xgroup span {
+      width: 20px;
+      height: 20px;
+      background-color: #ddd;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 20px;
       font-size: 14px;
-    }
-
-    .circles {
-      display: flex;
-      margin-top: 8px;
-      gap: 4px;
-      justify-content: center;
     }
 
     .circles span {
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background: #ddd;
-      display: inline-block;
-    }
-
-    .circles span:last-child {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-weight: bold;
-      background: #ddd;
-    }
-
-    .xgroup {
-      display: flex;
-      gap: 4px;
-      margin-top: 12px;
-      justify-content: center;
+      background-color: #28a745;
     }
 
     .xgroup span {
-      display: inline-block;
-      padding: 2px 4px;
-      background: #fff;
-      border: 1px solid #000;
-      font-size: 12px;
+      background-color: #dc3545;
+    }
+
+    /* Estilo para o bloco do autor */
+    .autor-box {
+      background-color: white;
+      padding: 20px;
+      width: 30%;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+
+    .autor-box .title {
+      font-size: 1.2em;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .autor-box .name {
+      font-size: 1.5em;
+      margin-bottom: 15px;
+      font-weight: bold;
+      color: #1e90ff;
+    }
+
+    .autor-desc, .autor-email, .autor-tel {
+      margin-bottom: 15px;
+    }
+
+    .autor-desc p, .autor-email p, .autor-tel p {
+      font-size: 1em;
+      margin-bottom: 5px;
+    }
+
+    strong {
+      color: #333;
     }
   </style>
 </head>
 <body>
-
-  <header>
-    <div class="header-left">
-      <div style="width: 40px; height: 40px; background: #ddd;"></div>
-      <a href="#" style="text-decoration: underline;">Home</a>
-    </div>
-    <div class="header-right">
-      <div class="search-box">
-        <input type="text" placeholder="Search">
-        <span class="icon">🔍</span>
-      </div>
-      <div style="display: flex; gap: 12px;">
-        <div style="text-align: center;">
-          <div>⭐</div><div style="font-size: 12px;">wishlist</div>
-        </div>
-        <div style="text-align: center;">
-          <div>🛒</div><div style="font-size: 12px;">carrinho</div>
-        </div>
-      </div>
-      <div class="user">
-        <div class="circle"></div>
-        <div>usuário<br><span style="color: #ccc;">comprador</span></div>
-      </div>
-    </div>
-  </header>
-
-  <div class="main">
+  <div class="container">
     <!-- Plano 1 -->
     <div class="card">
-      <h2>davipagaio</h2>
-      <div class="price">$50<small>/mo</small></div>
+      <h2>{{ produto.nome }}</h2>
+      <div class="price">R${{ produto.preco_basico }}<small>/mo</small></div>
       <ul>
-        <li>List item</li>
-        <li>List item</li>
-        <li>List item</li>
-        <li>List item</li>
+        <li>Item básico 1</li>
+        <li>Item básico 2</li>
+        <li>Item básico 3</li>
+        <li>Item básico 4</li>
       </ul>
       <button id="btn-compartilhado" class="btn">Direito compartilhado</button>
       <div class="circles">
@@ -288,64 +150,57 @@
       </div>
     </div>
 
+    <!-- Plano 2 -->
     <div class="card">
-      <h2>davipagaio</h2>
-      <div class="price">$599<small>,00</small></div>
+      <h2>{{ produto.nome }}</h2>
+      <div class="price">R${{ produto.preco_pleno }}<small>,00</small></div>
       <ul style="font-style: italic;">
-        <li>List item</li>
-        <li>List item</li>
-        <li>List item</li>
-        <li>List item</li>
-        <li>List item</li>
+        <li>Item premium 1</li>
+        <li>Item premium 2</li>
+        <li>Item premium 3</li>
+        <li>Item premium 4</li>
+        <li>Item premium 5</li>
       </ul>
-      <button id="btn-pleno" class="btn">direito pleno</button>
+      <button id="btn-pleno" class="btn">Direito pleno</button>
       <div class="xgroup">
         <span>❌</span><span>❌</span><span>❌</span><span>❌</span>
       </div>
     </div>
+  </div>
 
-    <div class="placeholder"></div>
+  <!-- Autor -->
+  <div class="autor-box">
+    <p class="title">Autor</p>
+    <p class="name">{{ produto.autor_nome|upper }}</p>
 
-    <div class="autor-box">
-      <p class="title">autor</p>
-      <p class="name">DAVI OLIVEIRA</p>
+    <div class="autor-desc">
+      <p><strong>Descrição: </strong> {{ produto.descricao }}</p>
+      <p>Menu description.</p>
+    </div>
 
-      <div class="autor-item">
-        <p><strong>⭐ VENDIDO PARA XX USUÁRIOS</strong> ⇅A</p>
-        <p>Menu description.</p>
-      </div>
+    <div class="autor-email">
+      <p><strong>Email: </strong> {{ produto.email }}</p>
+      <p>Menu description.</p>
+    </div>
 
-      <div class="autor-item">
-        <p><strong>⭐ Menu Label</strong> ⇅A</p>
-        <p>Menu description.</p>
-      </div>
-
-      <div class="autor-item">
-        <p><strong>⭐ Menu Label</strong> ⇅A</p>
-        <p>Menu description.</p>
-      </div>
+    <div class="autor-tel">
+      <p><strong>Telefone: </strong> {{ produto.telefone }}</p>
+      <p>Menu description.</p>
     </div>
   </div>
 
-  <footer class="footer">
-    <p>@MarkeTOON - +55 (81) 9 9999-9999</p>
-    <button class="support-btn">✔ Fale com o suporte</button>
-  </footer>
-
   <script>
-    const btnPleno = document.getElementById("btn-pleno");
-    const btnCompartilhado = document.getElementById("btn-compartilhado");
-  
-    btnPleno.addEventListener("click", () => {
-      btnCompartilhado.disabled = true;
-      btnCompartilhado.style.opacity = 0.5; // visualmente desativado
+    document.getElementById("btn-compartilhado").addEventListener("click", function() {
+      alert("Você escolheu o direito compartilhado!");
+
+      // Desabilitar o botão "Direito pleno" após clicar no "Direito compartilhado"
+      document.getElementById("btn-pleno").disabled = true;
+      document.getElementById("btn-pleno").style.backgroundColor = "#dcdcdc"; // Cor para indicar que está desabilitado
     });
-  
-    btnCompartilhado.addEventListener("click", () => {
-      btnPleno.disabled = true;
-      btnPleno.style.opacity = 0.5;
+
+    document.getElementById("btn-pleno").addEventListener("click", function() {
+      alert("Você escolheu o direito pleno!");
     });
   </script>
-  
 </body>
 </html>
