@@ -199,10 +199,12 @@
 
         <form method="post" action="{% url 'adicionar_carrinho' produto.id %}">
           {% csrf_token %}
-          <button type="submit">🛒 adicionar ao carrinho</button>
+          <button type="submit">🛒 Adicionar ao Carrinho</button>
         </form>
+        
 
         <a href="{% url 'pagina_de_compra' produto.id %}">Comprar</a>
+        
         
       </div>
     {% empty %}
