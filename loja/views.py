@@ -137,3 +137,5 @@ def pagina_de_compra(request, produto_id):
     return render(request, 'loja/pag-de-compra.html', contexto)
   
 
+def suporte(request):
+    return render(request, 'loja/suporte.html')

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>FAQ / Suporte</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f8;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #1e90ff;
+    }
+
+    .faq-item {
+      margin-bottom: 20px;
+    }
+
+    .faq-item h2 {
+      font-size: 1.2em;
+      color: #1e90ff;
+      cursor: pointer;
+    }
+
+    .faq-item p {
+      margin: 5px 0 0 0;
+      display: none;
+    }
+
+    .faq-item.active p {
+      display: block;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>FAQ / Suporte</h1>
+
+    <div class="faq-item">
+      <h2>Como posso recuperar minha senha?</h2>
+      <p>Você pode recuperar sua senha clicando em "Esqueci minha senha" na tela de login e seguindo as instruções.</p>
+    </div>
+
+    <div class="faq-item">
+      <h2>Onde posso alterar meus dados pessoais?</h2>
+      <p>Acesse a seção "Minha Conta" após fazer login e clique em "Editar Perfil".</p>
+    </div>
+
+    <div class="faq-item">
+      <h2>Como entro em contato com o suporte?</h2>
+      <p>Você pode entrar em contato pelo e-mail suporte@exemplo.com ou pelo formulário de contato na página "Fale Conosco".</p>
+    </div>
+
+    <div class="faq-item">
+      <h2>Posso cancelar minha assinatura a qualquer momento?</h2>
+      <p>Sim, você pode cancelar a assinatura acessando "Minha Conta" e clicando em "Cancelar Assinatura".</p>
+    </div>
+
+    
+  </div>
+
+  <script>
+    // JavaScript para abrir/fechar respostas ao clicar
+    document.querySelectorAll('.faq-item h2').forEach(item => {
+      item.addEventListener('click', () => {
+        const parent = item.parentElement;
+        parent.classList.toggle('active');
+      });
+    });
+  </script>
+</body>
+</html>
