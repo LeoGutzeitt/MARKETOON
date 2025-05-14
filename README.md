@@ -1,4 +1,4 @@
-# =-= MARKETOON =-=
+# =-= MARKETOON =-= 
 ![texto](/src/logo-marketoon500-420.png)
 
 ## 👥 Equipe
@@ -6,7 +6,7 @@
 - Gabriel Victalino
 - Leonardo Gutzeit
 - Julia Ferreira
-- Dávila Peixoto
+- Dávila Peixoto 
 - Aline Takakura
 - Lívia Almeida
 ````
