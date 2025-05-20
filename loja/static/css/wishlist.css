@@ -127,7 +127,7 @@ body {
   }
   
   .btn-confirm {
-    padding: 8px 15px;
+    padding: 8px 15px; 
     margin: 5px;
     border: none;
     border-radius: 6px;
@@ -164,7 +164,6 @@ body {
   /*-----------------------------------------
   .wishlist-card {
     position: relative; /* necessário para posicionamento absoluto da estrela */
-  
   
   .wishlist-star {
     position: absolute;
