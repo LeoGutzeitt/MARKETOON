@@ -1,4 +1,3 @@
-from django.shortcuts import render,redirect
 from loja.models import func_registrar_produto
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
@@ -6,6 +5,8 @@ from .models import Wishlist
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
 from django.http import HttpResponse
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 
 
 # Create your views here.
@@ -17,6 +18,8 @@ def detalhes_produto(request, id):
 def home(request):
     query = request.GET.get('q', '')
     produtos = func_registrar_produto.objects.all()
+    
+
 
     if query:
         produtos = produtos.filter(
@@ -153,3 +156,43 @@ def pagina_pagamento(request):
         'plano': plano,
     }
     return render(request, 'loja/pagamento.html', contexto)
+
+
+
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        
+        user = authenticate(request, username=username, password=password)
+        
+        if user is not None:
+            login(request, user)
+            return redirect('home')  
+        else:
+            messages.error(request, 'Usuário ou senha inválidos.')
+    
+    return render(request, 'loja/login.html')
+
+def logout_view(request):
+    logout(request)
+    return redirect('home')
+
+
+from django.contrib.auth.models import User
+
+def cadastrar(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        email = request.POST.get('email', '')
+
+        if User.objects.filter(username=username).exists():
+            messages.error(request, 'Usuário já existe.')
+        else:
+            User.objects.create_user(username=username, password=password, email=email)
+            messages.success(request, 'Conta criada com sucesso. Faça login.')
+            return redirect('login')  # se houver uma URL chamada 'login'
+
+    return render(request, 'loja/cadastro.html')

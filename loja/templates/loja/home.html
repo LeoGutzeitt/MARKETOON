@@ -144,13 +144,20 @@
     <button>✔ New</button>
     <button>Price ↑</button>
     <button>Price ↓</button>
-    <a href="/cadastro/"><button>artist publish</button></a>
+    <a href="{% url 'cadastro' %}"><button>artist publish</button></a>
   </div>
 
   <div class="top-controls">
     <a href="/wishlist/"><button>⭐ Wishlist</button></a>
     <a href="/carrinho/"><button>🛒 Carrinho</button></a>
-    <span>Usuário <small style="color: gray;">comprador</small></span>
+
+    {% if request.user.is_authenticated %}
+      <span>Olá, {{ request.user.username }} <small style="color: gray;">(logado)</small></span>
+      <a href="{% url 'logout' %}"><button>🚪 Logout</button></a>
+    {% else %}
+      <a href="{% url 'login' %}"><button>Login</button></a>
+      <a href="{% url 'cadastrar' %}"><button>Cadastrar</button></a>
+    {% endif %}
   </div>
 </header>
 
@@ -201,11 +208,8 @@
           {% csrf_token %}
           <button type="submit">🛒 Adicionar ao Carrinho</button>
         </form>
-        
 
         <a href="{% url 'pagina_de_compra' produto.id %}">Comprar</a>
-        
-        
       </div>
     {% empty %}
       <div class="no-results-message" style="grid-column: 1 / -1; text-align: center; font-style: italic; color: gray;">
@@ -239,7 +243,6 @@
     <button class="support-button">✔ Fale com o suporte</button>
   </a>
 </footer>
-
 
 </body>
 </html>
