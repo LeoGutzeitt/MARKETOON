@@ -191,15 +191,11 @@
 
   <script>
     document.getElementById("btn-compartilhado").addEventListener("click", function() {
-      alert("Você escolheu o direito compartilhado!");
-
-      // Desabilitar o botão "Direito pleno" após clicar no "Direito compartilhado"
-      document.getElementById("btn-pleno").disabled = true;
-      document.getElementById("btn-pleno").style.backgroundColor = "#dcdcdc"; // Cor para indicar que está desabilitado
+      window.location.href = "/pagamento/?produto_id={{ produto.id }}&plano=compartilhado";
     });
 
     document.getElementById("btn-pleno").addEventListener("click", function() {
-      alert("Você escolheu o direito pleno!");
+      window.location.href = "/pagamento/?produto_id={{ produto.id }}&plano=pleno";
     });
   </script>
 </body>

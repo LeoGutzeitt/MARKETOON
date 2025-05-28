@@ -123,9 +123,10 @@ def produtos(request):
 
 
 def pagina_de_compra(request, produto_id):
-    produto = func_registrar_produto.objects.get(id=produto_id)
+    produto = get_object_or_404(func_registrar_produto, id=produto_id)
     contexto = {
         'produto': {
+            'id': produto.id,
             'nome': produto.nome,
             'preco_basico': produto.preco,
             'preco_pleno': produto.preco,
@@ -135,7 +136,20 @@ def pagina_de_compra(request, produto_id):
         }
     }
     return render(request, 'loja/pag-de-compra.html', contexto)
+
   
 
 def suporte(request):
     return render(request, 'loja/suporte.html')
+
+def pagina_pagamento(request):
+    produto_id = request.GET.get('produto_id')
+    plano = request.GET.get('plano')
+
+    produto = get_object_or_404(func_registrar_produto, id=produto_id)
+
+    contexto = {
+        'produto': produto,
+        'plano': plano,
+    }
+    return render(request, 'loja/pagamento.html', contexto)

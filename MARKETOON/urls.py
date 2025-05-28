@@ -40,6 +40,8 @@ urlpatterns = [
     path('produtos/', views.produtos, name='produtos'),  
     path('compra/<int:produto_id>/', views.pagina_de_compra, name='pagina_de_compra'),
     path('suporte/', views.suporte, name='suporte'),
+    path('pagamento/', views.pagina_pagamento, name='pagina_pagamento'),
+
 
 
 
