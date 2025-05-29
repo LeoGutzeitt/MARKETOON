@@ -25,6 +25,7 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),  # sua própria view
     path('logout/', views.logout_view, name='logout'),
     path('cadastrar/', views.cadastrar, name='cadastrar'),
+    path('processar_pagamento/', views.processar_pagamento, name='processar_pagamento'),
 ]
 
 if settings.DEBUG:

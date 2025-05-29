@@ -17,9 +17,7 @@ def detalhes_produto(request, id):
 
 def home(request):
     query = request.GET.get('q', '')
-    produtos = func_registrar_produto.objects.all()
-    
-
+    produtos = func_registrar_produto.objects.filter(vendido=False)
 
     if query:
         produtos = produtos.filter(
@@ -27,11 +25,12 @@ def home(request):
             Q(descricao__icontains=query)
         )
 
-    paginator = Paginator(produtos, 12)  # ou a paginação que estiver usando
+    paginator = Paginator(produtos, 12)
     page = request.GET.get('page')
     produtos_paginados = paginator.get_page(page)
 
     return render(request, 'loja/home.html', {'produtos': produtos_paginados})
+
 
 def cadastro_produto(request):
     if request.method == "POST":
@@ -156,6 +155,31 @@ def pagina_pagamento(request):
         'plano': plano,
     }
     return render(request, 'loja/pagamento.html', contexto)
+    
+
+def processar_pagamento(request):
+    if request.method == 'POST':
+        nome = request.POST.get('nome')
+        email = request.POST.get('email')
+        cartao = request.POST.get('cartao')
+        validade = request.POST.get('validade')
+        cvv = request.POST.get('cvv')
+        produto_id = request.POST.get('produto_id')
+        plano = request.POST.get('plano')
+
+        try:
+            produto = func_registrar_produto.objects.get(id=produto_id)
+        except func_registrar_produto.DoesNotExist:
+            return HttpResponse("Produto não encontrado", status=404)
+        
+        if plano == 'pleno':
+            produto.vendido = True
+            produto.tipo_direito = 'pleno'
+            produto.save()
+        
+
+        return redirect('home')
+    return redirect('checkout') 
 
 
 
