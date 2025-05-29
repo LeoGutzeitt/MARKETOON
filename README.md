@@ -1,4 +1,4 @@
-# =-= MARKETOON =-=
+# =-= MARKETOON =-= 
 ![texto](/src/logo-marketoon500-420.png)
 
 ## 👥 Equipe
@@ -6,7 +6,7 @@
 - Gabriel Victalino
 - Leonardo Gutzeit
 - Julia Ferreira
-- Dávila Peixoto
+- Dávila Peixoto 
 - Aline Takakura
 - Lívia Almeida
 ````
@@ -24,7 +24,7 @@ O _Marketoon_ é um sistema de controle de vendas que tem como objetivo auxiliar
 ![Sprint 1](/src/backlog_jira.png)
 
 ### Sprint 2
-![Sprint 2](https://github.com/user-attachments/assets/2aa7d246-4291-47bc-a5af-8eee36e68984)
+![Sprint 2](https://github.com/user-attachments/assets/87364b1b-cf19-49fe-98cc-332ad25986b4)
 
 ### Link do JIRA
 - ***[Acessar o Jira](https://cesar-fds-mrktn.atlassian.net/jira/software/projects/A87/boards/1?atlOrigin=eyJpIjoiYTMwMmU5YTcxNWU5NDVjODg2YzFiZjZmZmE2YmRlMDMiLCJwIjoiaiJ9)***
@@ -52,7 +52,7 @@ https://docs.google.com/document/d/1jK9qDib2bew-SsQ6mmEFKYu8REy3YnvByAwQbvLMp5Q/
 ````
 ## ☁️ Link Azure:
 ````
-https://marketoon-brg8bfchdwe9hndr.brazilsouth-01.azurewebsites.net/
+https://marketoon-cartoons.azurewebsites.net/
 ````
 
 ## 🎬 Screencast
@@ -71,7 +71,7 @@ https://marketoon-brg8bfchdwe9hndr.brazilsouth-01.azurewebsites.net/
 <h3>Entrega 3</h3>
 
 - lorem
-- lorem
-- lorem
+- [Clique aqui para assistir o vídeo da demonstração do deploy](https://youtu.be/Gc4gB3FPI6c)
+
 
 </details>

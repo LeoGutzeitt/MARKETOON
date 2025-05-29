@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pagamento - Finalizar Compra</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      background-color: rgb(255, 255, 255);
+      color: #333;
+    }
+
+    header {
+      background-color: rgb(3, 200, 235);
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #ddd;
+      color: white;
+    }
+
+    header a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+
+    main {
+      max-width: 600px;
+      margin: 40px auto;
+      background: rgb(240, 248, 255);
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      margin-bottom: 30px;
+      color: rgb(3, 200, 235);
+      text-align: center;
+    }
+
+    form label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    form input, form select {
+      width: 100%;
+      padding: 10px 12px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1em;
+      box-sizing: border-box;
+      transition: border-color 0.3s;
+    }
+
+    form input:focus, form select:focus {
+      border-color: rgb(3, 200, 235);
+      outline: none;
+    }
+
+    .btn-submit {
+      background-color: rgb(3, 200, 235);
+      color: white;
+      font-weight: 700;
+      padding: 14px 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 1.1em;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-submit:hover {
+      background-color: rgb(2, 160, 190);
+    }
+
+    .back-link {
+      display: block;
+      margin-top: 15px;
+      text-align: center;
+      font-size: 0.9em;
+      color: rgb(3, 200, 235);
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="/">← Voltar para Home</a>
+</header>
+
+<main>
+  <h1>Finalizar Compra</h1>
+
+  <form method="post" action="/processar_pagamento/">
+    <label for="nome">Nome Completo</label>
+    <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required />
+
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" placeholder="seu@email.com" required />
+
+    <label for="cartao">Número do Cartão</label>
+    <input type="text" id="cartao" name="cartao" placeholder="0000 0000 0000 0000" required pattern="\d{13,16}" maxlength="19" />
+
+    <label for="validade">Validade</label>
+    <input type="month" id="validade" name="validade" required />
+
+    <label for="cvv">CVV</label>
+    <input type="password" id="cvv" name="cvv" placeholder="123" required pattern="\d{3,4}" maxlength="4" />
+
+    <button type="submit" class="btn-submit">Finalizar Compra</button>
+  </form>
+</main>
+
+</body>
+</html>

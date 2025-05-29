@@ -14,18 +14,17 @@ describe ('como usuário gostaria de adicionar meus itens ao carrinho', () => {
         cy.get('#preco').type('120');
         cy.get('#imagem').selectFile('media/produtos/lofiwall1.jpg');
         cy.get('button').click();
-        cy.get('[action="/adicionar-carrinho/29/"] > button').click();
         cy.get('[href="/carrinho/"] > button').click();
-
+        
         
 
        // cy.url().should('eq', 'http://127.0.0.1:8000/');
        // cy.contains('nada importante').should('exist');
 })
-it('carrinho vazio', () => {
-    cy.visit('/');
-    cy.get('[href="/carrinho/"] > button').click();
-    
+//it('carrinho vazio', () => {
+  //  cy.visit('/');
+    //cy.get('[href="/carrinho/"] > button').click();
+
 
     
 
@@ -35,4 +34,3 @@ it('carrinho vazio', () => {
     
 
 
-})

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro | MarketoON</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .left {
+            width: 50%;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .left h1 {
+            font-size: 40px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            width: 100%;
+            max-width: 350px;
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background-color: black;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .btn:hover {
+            background-color: #333;
+        }
+
+        .links {
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .links a {
+            color: #333;
+            text-decoration: none;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+        .right {
+            width: 50%;
+            background-color: #dcdcdc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
+            position: relative;
+        }
+
+        .right h2 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .footer span {
+            margin: 0 10px;
+        }
+
+        .footer button {
+            background: black;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .footer button:hover {
+            background-color: #333;
+        }
+
+        .error-message {
+            color: red;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="left">
+        <h1>MarkeToon</h1>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="error-message">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Digite seu email" required />
+            </div>
+
+            <div class="form-group">
+                <label for="password1">Senha</label>
+                <input type="password" id="password1" name="password1" placeholder="Digite sua senha" required />
+            </div>
+
+            <div class="form-group">
+                <label for="password2">Confirme sua senha</label>
+                <input type="password" id="password2" name="password2" placeholder="Confirme sua senha" required />
+            </div>
+
+            <div class="form-group">
+                <label for="username">Usuário</label>
+                <input type="text" id="username" name="username" placeholder="Digite seu username" required />
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn">Finalizar</button>
+            </div>
+        </form>
+
+        <div class="links">
+            <p>Já tem uma conta?</p>
+            <a href="{% url 'login' %}">
+                <button class="btn">Sign in</button>
+            </a>
+        </div>
+
+        <div class="footer">
+            <span>@MarkeTOON - +55 (81) 9 9999-9999</span>
+            <button onclick="location.href='{% url 'suporte' %}'">🔊 Fale com o suporte</button>
+            <span>©</span>
+        </div>
+    </div>
+
+    <div class="right">
+        <h2>IMAGEM 2</h2>
+        <!-- Ou use uma imagem real:
+        <img src="{% static 'img/cadastro.png' %}" alt="Imagem Cadastro">
+        -->
+    </div>
+</div>
+
+</body>
+</html>

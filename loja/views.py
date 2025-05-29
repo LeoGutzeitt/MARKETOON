@@ -5,6 +5,8 @@ from .models import Wishlist
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
 from django.http import HttpResponse
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 
 
 # Create your views here.
@@ -16,6 +18,8 @@ def detalhes_produto(request, id):
 def home(request):
     query = request.GET.get('q', '')
     produtos = func_registrar_produto.objects.all()
+    
+
 
     if query:
         produtos = produtos.filter(
@@ -122,9 +126,10 @@ def produtos(request):
 
 
 def pagina_de_compra(request, produto_id):
-    produto = func_registrar_produto.objects.get(id=produto_id)
+    produto = get_object_or_404(func_registrar_produto, id=produto_id)
     contexto = {
         'produto': {
+            'id': produto.id,
             'nome': produto.nome,
             'preco_basico': produto.preco,
             'preco_pleno': produto.preco,
@@ -134,7 +139,63 @@ def pagina_de_compra(request, produto_id):
         }
     }
     return render(request, 'loja/pag-de-compra.html', contexto)
+
   
 
 def suporte(request):
     return render(request, 'loja/suporte.html')
+
+def pagina_pagamento(request):
+    produto_id = request.GET.get('produto_id')
+    plano = request.GET.get('plano')
+
+    produto = get_object_or_404(func_registrar_produto, id=produto_id)
+
+    contexto = {
+        'produto': produto,
+        'plano': plano,
+    }
+    return render(request, 'loja/pagamento.html', contexto)
+
+
+
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        
+        user = authenticate(request, username=username, password=password)
+        
+        if user is not None:
+            login(request, user)
+            return redirect('home')  
+        else:
+            messages.error(request, 'Usuário ou senha inválidos.')
+    
+    return render(request, 'loja/login.html')
+
+def logout_view(request):
+    logout(request)
+    return redirect('home')
+
+
+from django.contrib.auth.models import User
+
+def cadastrar(request):
+    if request.method == 'POST':
+        username = request.POST.get('username', '')
+        email = request.POST.get('email', '')
+        password1 = request.POST.get('password1', '')
+        password2 = request.POST.get('password2', '')
+
+        if password1 != password2:
+            messages.error(request, 'As senhas não coincidem.')
+        elif User.objects.filter(username=username).exists():
+            messages.error(request, 'Usuário já existe.')
+        else:
+            User.objects.create_user(username=username, password=password1, email=email)
+            messages.success(request, 'Conta criada com sucesso. Faça login.')
+            return redirect('login')  # certifique-se de ter uma URL chamada 'login'
+
+    return render(request, 'loja/cadastro.html')
