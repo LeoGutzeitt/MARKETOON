@@ -236,7 +236,7 @@
 
     <div>
      {% if request.user.is_authenticated %}
-  <a href="{% url 'perfil' %}" style="text-decoration: none; color: white;">
+  <a href="{% url 'perfil' %}" style="text-decoration: none; color: black;">
     {% if request.user.perfil.imagem %}
     <img src="{{ request.user.perfil.imagem.url }}" alt="Foto de perfil" class="perfil-foto">
     {% else %}

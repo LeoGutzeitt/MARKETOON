@@ -3,29 +3,245 @@
 <head>
   <meta charset="UTF-8">
   <title>Lista de Desejos</title>
-  {% load static %}
-  <link rel="stylesheet" href="{% static 'css/wishlist.css' %}">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #e6f0ff 50%, #ffffff 50%);
+      color: #003366;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .header {
+      background-color: #0066cc;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 10px;
+      margin-bottom: 30px;
+    }
+
+    .header-left, .header-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .header-left .home-link {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+
+    .header-left .home-link:hover {
+      text-decoration: underline;
+    }
+
+    .header-center {
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .user-name {
+      font-weight: bold;
+    }
+
+    .user-role {
+      font-size: 12px;
+      color: #cce6ff;
+    }
+
+    .content-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .wishlist-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .wishlist-card {
+      background-color: white;
+      border: 2px solid #99ccff;
+      border-radius: 10px;
+      width: 240px;
+      padding: 15px;
+      position: relative;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .wishlist-star {
+      font-size: 20px;
+      color: #ffcc00;
+      position: absolute;
+      top: 10px;
+      right: 15px;
+    }
+
+    .image-placeholder {
+      width: 100%;
+      height: 150px;
+      background-color: #e0f0ff;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+
+    .product-info {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .product-name {
+      font-weight: bold;
+      font-size: 16px;
+      color: #004d99;
+    }
+
+    .product-price {
+      color: #007acc;
+      margin-top: 5px;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .action-btn {
+      background-color: #0066cc;
+      border: none;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.2s;
+    }
+
+    .action-btn:hover {
+      background-color: #004c99;
+    }
+
+    .confirm-box {
+      background-color: #e6f2ff;
+      border: 2px solid #99ccff;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .btn-confirm {
+      padding: 8px 16px;
+      margin: 10px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+    }
+
+    .yes {
+      background-color: #007acc;
+      color: white;
+    }
+
+    .yes:hover {
+      background-color: #005c99;
+    }
+
+    .no {
+      background-color: #ccc;
+    }
+
+    .no:hover {
+      background-color: #aaa;
+    }
+
+    .checkout-container {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .checkout-btn {
+      background-color: #005cbf;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .checkout-btn:hover {
+      background-color: #004080;
+    }
+
+    .perfil-foto {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid white;
+      box-shadow: 0 0 4px rgba(0,0,0,0.2);
+    }
+
+    
+
+
+  </style>
 </head>
 <body>
 
   <!-- TOPO -->
   <header class="header">
     <div class="header-left">
-      <div class="logo-placeholder"></div>
-      <a href="/" class="home-link">Home</a>
+      <div class="logo-placeholder"><!-- Logo opcional --></div>
+      <a href="/" class="home-link">← Home</a>
     </div>
-    <div class="header-center">
-      LISTA DE DESEJOS
-    </div>
+    <div class="header-center">LISTA DE DESEJOS</div>
     <div class="header-right">
-      <div class="user-name">usuário</div>
-      <div class="user-role">comprador</div>
+    <div>
+     {% if request.user.is_authenticated %}
+  <a href="{% url 'perfil' %}" style="text-decoration: none; color: black;">
+    {% if request.user.perfil.imagem %}
+    <img src="{{ request.user.perfil.imagem.url }}" alt="Foto de perfil" class="perfil-foto">
+    {% else %}
+    <img src="/static/img/default-avatar.png" alt="Avatar" class="user-avatar">
+    {% endif %}
+    <span>Olá, {{ request.user.username }}</span>
+  </a>
+  </a>
+{% else %}
+  <a href="{% url 'login' %}">
+    <button>Login</button>
+  </a>
+  <a href="{% url 'cadastrar' %}">
+    <button>Cadastrar</button>
+  </a>
+{% endif %}
+    </div>
     </div>
   </header>
 
-  <!-- FUNDO COM DIVISÃO DIAGONAL -->
+  <!-- CONTEÚDO -->
   <div class="content-wrapper">
-    <div class="diagonal-bg"></div>
 
     <!-- LISTA DE PRODUTOS -->
     <section class="wishlist-items">
@@ -53,19 +269,19 @@
       {% endfor %}
     </section>
 
-    <!-- CAIXA DE CONFIRMAÇÃO -->
+    <!-- CONFIRMAÇÃO -->
     <aside class="confirm-box">
       <p>Limpar a lista de desejos?</p>
       <form method="post" action="{% url 'limpar_wishlist' %}">
         {% csrf_token %}
-        <button class="btn-confirm yes">sim</button>
-        <button type="button" class="btn-confirm no" onclick="window.location.reload()">não</button>
+        <button class="btn-confirm yes">Sim</button>
+        <button type="button" class="btn-confirm no" onclick="window.location.reload()">Não</button>
       </form>
     </aside>
 
     <!-- CHECKOUT -->
     <div class="checkout-container">
-      <a href="{% url 'checkout' %}" class="checkout-btn">checkout</a>
+      <a href="{% url 'home' %}" class="checkout-btn">Checkout</a>
     </div>
   </div>
 
