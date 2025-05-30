@@ -1,36 +1,34 @@
 Cypress.Commands.add('deletedatabase', () => {
-    cy.exec('python delete_database.py', { failOnNonZeroExit: false })
+  cy.exec('python delete_database.py', { failOnNonZeroExit: false });
 });
 
-describe ('como usuário gostaria de adicionar meus itens ao carrinho', () => {
-    it('adicionando ao carrinho', () => {
-        cy.visit('/');
-        cy.deletedatabase();
-        cy.get('[href="/cadastro/"] > button').click();
-        cy.get('#nome').type('nada importante');
-        cy.get('#email').type('nadaimportante@semail.com');
-        cy.get('#telefone').type('81999999999');
-        cy.get('#descricao').type('nada importante');
-        cy.get('#preco').type('120');
-        cy.get('#imagem').selectFile('media/produtos/lofiwall1.jpg');
-        cy.get('button').click();
-        cy.get('[href="/carrinho/"] > button').click();
-        
-        
+describe('Fluxo: cadastrar produto e adicionar ao carrinho', () => {
 
-       // cy.url().should('eq', 'http://127.0.0.1:8000/');
-       // cy.contains('nada importante').should('exist');
-})
-//it('carrinho vazio', () => {
-  //  cy.visit('/');
-    //cy.get('[href="/carrinho/"] > button').click();
+  before(() => {
+    cy.deletedatabase();
+  });
+
+  it('deve cadastrar um produto, adicionar ao carrinho e visualizar no carrinho', () => {
+    cy.visit('/cadastro/');
+    cy.get('#nome').type('Teste carrinho');
+    cy.get('#email').type('teste@email.com');
+    cy.get('#telefone').type('81999999999');
+    cy.get('#descricao').type('Descrição do produto');
+    cy.get('#preco').type('150');
+    cy.get('#imagem').selectFile('media/produtos/lofiwall1.jpg');
+    cy.get('button').click();
+    cy.url().should('eq', 'http://127.0.0.1:8000/');
+    cy.contains('Teste carrinho')
+      .parent() 
+      .find('button.cart-button') 
+      .click();
+    cy.url().should('include', '/carrinho');
+    cy.get('.carrinho-container').should('contain', 'Teste carrinho');
+
+  });
+
+});
 
 
-    
-
-   // cy.url().should('eq', 'http://127.0.0.1:8000/');
-   // cy.contains('nada importante').should('exist');
-})
-    
 
 
