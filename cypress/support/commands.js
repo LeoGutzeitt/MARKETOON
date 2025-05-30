@@ -23,3 +23,7 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('deletedatabase', () => {
+  cy.exec('python delete_database.py', { failOnNonZeroExit: false });
+});
