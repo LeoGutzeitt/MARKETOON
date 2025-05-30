@@ -11,8 +11,9 @@
     html, body {
       margin: 0;
       padding: 0;
-      font-family: sans-serif;
-      background-color: #f9f9f9;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9f9fb;
+      color: #333;
       height: 100%;
     }
 
@@ -23,35 +24,78 @@
     }
 
     header, footer {
-      background-color: white;
-      padding: 15px 30px;
+      background-color:rgb(230, 247, 255);
+      padding: 20px 40px;
+      padding: 20px 40px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid #ddd;
+      border-radius: 10px;
+    }
+
+    header {
+      border-bottom: 4px solid rgb(116, 177, 248);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    footer {
+      border-top: 4px solid rgb(137, 152, 238);
+      padding-top: 20px;
+      font-size: 14px;
+      margin-top: auto;
+    }
+
+    .top-controls {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .top-controls a, .top-controls button {
+      text-decoration: none;
+      font-size: 16px;
+      color: white;
+    }
+
+    .top-controls button {
+      padding: 10px 20px;
+      background-color:rgb(45, 60, 192);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .top-controls button:hover {
+      background-color: #004d40;
+    }
+
+    .top-controls button:active {
+      background-color: #43a047;
+      transform: scale(0.98);
     }
 
     main {
       flex: 1;
-      padding: 30px 20px;
+      padding: 40px 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
     h1 {
-      margin-bottom: 20px;
       font-size: 28px;
+      margin-bottom: 20px;
+      color:rgb(50, 52, 189);
     }
 
     .carrinho-container {
       width: 100%;
       max-width: 800px;
       background-color: white;
-      padding: 20px 30px;
+      padding: 30px;
       border-radius: 10px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      flex-grow: 1;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
     .mensagem {
@@ -80,8 +124,10 @@
     }
 
     li a {
-      color: #007bff;
+      color:rgb(61, 59, 175);
       text-decoration: none;
+      margin-left: 15px;
+      font-weight: 500;
     }
 
     li a:hover {
@@ -93,45 +139,51 @@
       flex-wrap: wrap;
       gap: 10px;
       justify-content: center;
-      margin-top: 20px;
+      margin-top: 30px;
     }
 
-    button {
-      padding: 10px 15px;
+    .buttons button {
+      padding: 10px 16px;
       font-size: 15px;
-      background-color: #000;
+      background-color:rgb(0, 3, 167);
       color: white;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      transition: background-color 0.3s;
+      transition: background-color 0.3s ease, transform 0.2s ease;
     }
 
-    button:hover {
-      background-color: #333;
+    .buttons button:hover {
+      background-color: #00796b;
+      transform: scale(1.05);
     }
 
-    a button {
-      background-color: #007bff;
-    }
-
-    a button:hover {
-      background-color: #0056b3;
-    }
-
-    footer {
-      justify-content: space-between;
-      border-top: 1px solid #ddd;
-      margin-top: auto;
+    .buttons form {
+      display: inline;
     }
 
     .support-button {
-      background: black;
-      color: white;
+      background:rgb(0, 28, 105);
+      color: #fff;
       border: none;
-      padding: 10px 15px;
-      border-radius: 8px;
+      padding: 10px 18px;
+      border-radius: 25px;
       cursor: pointer;
+      font-size: 15px;
+      transition: background-color 0.3s ease;
+    }
+
+    .support-button:hover {
+      background-color: #004d40;
+    }
+
+    .perfil-foto {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid white;
+      box-shadow: 0 0 4px rgba(0,0,0,0.2);
     }
   </style>
 </head>
@@ -139,15 +191,29 @@
 
 <header>
   <div class="top-controls">
-    <img src="/static/img/logo.png" alt="Logo" width="40" />
-    <a href="/">Home</a>
-    <a href="/produtos/">Produtos</a>
-  </div>
+  <img src="/static/img/logo.png" alt="Logo" width="40" />
+  <a href="/" style="color: black; text-decoration: none;">Home</a>
+  <a href="/produtos/" style="color: black; text-decoration: none;">Produtos</a>
+</div>
+
 
   <div class="top-controls">
     <a href="/wishlist/"><button>⭐ Wishlist</button></a>
     <a href="/carrinho/"><button>🛒 Carrinho</button></a>
-    <span>Usuário <small style="color: gray;">comprador</small></span>
+    
+     {% if request.user.is_authenticated %}
+  <a href="{% url 'perfil' %}" style="text-decoration: none; color: black;">
+    {% if request.user.perfil.imagem %}
+    <img src="{{ request.user.perfil.imagem.url }}" alt="Foto de perfil" class="perfil-foto">
+    {% else %}
+    <img src="/static/img/default-avatar.png" alt="Avatar" class="user-avatar">
+    {% endif %}
+    <span>Olá, {{ request.user.username }}</span>
+  </a>
+      <a href="{% url 'logout' %}"><button style="background-color:rgb(50, 47, 211);">Sair</button></a>
+    {% else %}
+      <a href="{% url 'login' %}"><button>Entrar</button></a>
+    {% endif %}
   </div>
 </header>
 
@@ -162,7 +228,10 @@
       {% for produto in produtos %}
         <li>
           <span>{{ produto.nome }} - R$ {{ produto.preco }} - Quantidade: 1</span>
-          <a href="{% url 'pagina_de_compra' produto.id %}">Comprar</a> <a href="{% url 'remover_carrinho' produto.id %}">Remover</a>
+          <div>
+            <a href="{% url 'pagina_de_compra' produto.id %}">Comprar</a>
+            <a href="{% url 'remover_carrinho' produto.id %}">Remover</a>
+          </div>
         </li>
       {% empty %}
         <li>Seu carrinho está vazio.</li>
@@ -173,12 +242,10 @@
       <a href="{% url 'home' %}"><button>Home</button></a>
       <a href="{% url 'produtos' %}"><button>Adicionar Mais Itens</button></a>
 
-      <form method="post" action="{% url 'limpar_carrinho' %}" style="display: inline;">
+      <form method="post" action="{% url 'limpar_carrinho' %}">
         {% csrf_token %}
         <button type="submit">Limpar Carrinho</button>
       </form>
-
-      
     </div>
   </div>
 </main>
@@ -189,7 +256,6 @@
     <button class="support-button">✔ Fale com o suporte</button>
   </a>
 </footer>
-
 
 </body>
 </html>
