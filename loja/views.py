@@ -196,14 +196,15 @@ def login_view(request):
         if user is not None:
             login(request, user)
 
-            # Garante que o perfil existe
-            Perfil.objects.get_or_create(usuario=user)
+            
+            Perfil.objects.get_or_create(user=user)
 
             return redirect('home')  
         else:
             messages.error(request, 'Usuário ou senha inválidos.')
     
     return render(request, 'loja/login.html')
+
 
 def logout_view(request):
     logout(request)
@@ -234,7 +235,8 @@ def cadastrar(request):
 @receiver(post_save, sender=User)
 def criar_perfil_usuario(sender, instance, created, **kwargs):
     if created:
-        Perfil.objects.create(usuario=instance)
+        Perfil.objects.create(user=instance)  # Corrigido aqui também
+
 
 
 from .models import Produto 
