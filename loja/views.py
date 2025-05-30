@@ -1,4 +1,4 @@
-from loja.models import func_registrar_produto
+from loja.models import func_registrar_produto, Perfil
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Wishlist
@@ -7,7 +7,9 @@ from django.db.models import Q
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-
+from django.db.models.signals import post_save
+from django.contrib.auth.models import User
+from django.dispatch import receiver
 
 # Create your views here.
 def detalhes_produto(request, id):
@@ -193,6 +195,10 @@ def login_view(request):
         
         if user is not None:
             login(request, user)
+
+            # Garante que o perfil existe
+            Perfil.objects.get_or_create(usuario=user)
+
             return redirect('home')  
         else:
             messages.error(request, 'Usuário ou senha inválidos.')
@@ -223,3 +229,46 @@ def cadastrar(request):
             return redirect('login')  # certifique-se de ter uma URL chamada 'login'
 
     return render(request, 'loja/cadastro.html')
+
+
+@receiver(post_save, sender=User)
+def criar_perfil_usuario(sender, instance, created, **kwargs):
+    if created:
+        Perfil.objects.create(usuario=instance)
+
+
+from .models import Produto 
+from django.contrib import messages
+
+def perfil(request):
+    user = request.user
+    perfil, created = Perfil.objects.get_or_create(user=user)
+
+    if request.method == 'POST':
+        user.first_name = request.POST.get('name')
+        user.email = request.POST.get('email')
+        user.save()
+
+        if 'imagem' in request.FILES:
+            perfil.imagem = request.FILES['imagem']
+
+        
+        
+        perfil.descricao = request.POST.get('descricao')
+        perfil.is_vendedor = 'vendedor' in request.POST
+
+        produtos_ids = request.POST.getlist('produtos')
+        perfil.produtos.set(produtos_ids)
+
+        perfil.save()
+        messages.success(request, "Perfil atualizado com sucesso.")
+
+        return redirect('perfil')
+
+    produtos_disponiveis = Produto.objects.all()
+
+    return render(request, 'loja/perfil.html', {
+    'user': user,
+    'perfil': perfil,
+    'produtos_disponiveis': produtos_disponiveis,
+})

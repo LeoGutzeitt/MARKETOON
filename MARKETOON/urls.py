@@ -26,6 +26,9 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('cadastrar/', views.cadastrar, name='cadastrar'),
     path('processar_pagamento/', views.processar_pagamento, name='processar_pagamento'),
+
+    path('perfil/', views.perfil, name='perfil'),
+    
 ]
 
 if settings.DEBUG:

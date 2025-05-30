@@ -152,13 +152,21 @@
     <a href="/carrinho/"><button>🛒 Carrinho</button></a>
 
     {% if request.user.is_authenticated %}
-      <span>Olá, {{ request.user.username }} <small style="color: gray;">(logado)</small></span>
-      <a href="{% url 'logout' %}"><button>🚪 Logout</button></a>
-    {% else %}
-      <a href="{% url 'login' %}"><button>Login</button></a>
-      <a href="{% url 'cadastrar' %}"><button>Cadastrar</button></a>
-    {% endif %}
-  </div>
+  <a href="{% url 'perfil' %}" style="text-decoration: none; color: black;">
+    <span>Olá, {{ request.user.username }} <small style="color: gray;">(logado)</small></span>
+  </a>
+  <a href="{% url 'logout' %}">
+    <button>🚪 Logout</button>
+  </a>
+{% else %}
+  <a href="{% url 'login' %}">
+    <button>Login</button>
+  </a>
+  <a href="{% url 'cadastrar' %}">
+    <button>Cadastrar</button>
+  </a>
+{% endif %}
+
 </header>
 
 <div class="main">
