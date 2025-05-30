@@ -2,42 +2,75 @@
 
 {% block content %}
 <style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f7fc;
+    }
+
     .perfil-container {
         display: flex;
         flex-wrap: wrap;
         gap: 2rem;
         padding: 2rem;
-        font-family: Arial, sans-serif;
+        max-width: 1600px;
+        margin: auto;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     .sidebar {
-        width: 250px;
+        width: 300px;
         text-align: center;
-        border-right: 1px solid #ccc;
-        padding-right: 1rem;
+        padding: 1.5rem;
+        background-color: #fafafa;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
     }
 
     .avatar {
-        width: 120px;
-        height: 120px;
+        width: 150px;
+        height: 150px;
         border-radius: 50%;
         object-fit: cover;
         margin-bottom: 1rem;
-        border: 2px solid #aaa;
+        border: 2px solid #ddd;
+    }
+
+    h3 {
+        font-size: 1.5rem;
+        color: #333;
+        margin: 0.5rem 0;
+    }
+
+    .dias-plataforma {
+        margin-top: 1rem;
+        font-size: 0.875rem;
+        color: #777;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .perfil-form {
         flex: 1;
+        background-color: #fff;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
     }
 
     .form-group {
-        margin-bottom: 1rem;
+        margin-bottom: 1.25rem;
     }
 
     label {
         display: block;
-        font-weight: bold;
+        font-weight: 600;
         margin-bottom: 0.5rem;
+        color: #333;
     }
 
     input[type="text"],
@@ -46,9 +79,12 @@
     textarea,
     select {
         width: 100%;
-        padding: 8px;
+        padding: 12px;
         border: 1px solid #ccc;
-        border-radius: 4px;
+        border-radius: 6px;
+        font-size: 1rem;
+        background-color: #f9f9f9;
+        box-sizing: border-box;
     }
 
     textarea {
@@ -56,27 +92,46 @@
     }
 
     .btn-salvar,
-    .btn-cadastrar-arte {
-        display: inline-block;
-        padding: 10px 20px;
-        background-color: #222;
-        color: white;
+    .btn-cadastrar-arte,
+    .btn-voltar-home {
+        padding: 12px 24px;
+        font-size: 1rem;
+        border-radius: 6px;
         border: none;
-        border-radius: 4px;
-        text-decoration: none;
         cursor: pointer;
-        margin-top: 10px;
+        text-decoration: none;
+        color: #fff;
+        transition: all 0.3s ease;
+    }
+
+    .btn-salvar {
+        background-color: #4CAF50;
+    }
+
+    .btn-salvar:hover {
+        background-color: #45a049;
     }
 
     .btn-cadastrar-arte {
-        background-color: #4CAF50;
-        margin-left: 10px;
+        background-color: #007bff;
+        margin-left: 1rem;
+        display: none; /* Inicialmente escondido */
     }
 
-    .dias-plataforma {
+    .btn-cadastrar-arte:hover {
+        background-color: #0069d9;
+    }
+
+    .btn-voltar-home {
+        background-color: #007bff;
         margin-top: 1rem;
-        font-size: 0.9rem;
-        color: #555;
+        text-align: center;
+        display: inline-block;
+        width: 100%;
+    }
+
+    .btn-voltar-home:hover {
+        background-color: #0056b3;
     }
 
     .switch {
@@ -100,7 +155,7 @@
         right: 0;
         bottom: 0;
         background-color: #ccc;
-        transition: .4s;
+        transition: 0.4s;
         border-radius: 34px;
     }
 
@@ -112,7 +167,7 @@
         left: 4px;
         bottom: 4px;
         background-color: white;
-        transition: .4s;
+        transition: 0.4s;
         border-radius: 50%;
     }
 
@@ -122,33 +177,6 @@
 
     input:checked + .slider:before {
         transform: translateX(26px);
-    }
-
-    /* Esconde o botão inicialmente se não for vendedor */
-    .btn-cadastrar-arte {
-        display: none;
-    }
-
-    /* Mostrar se ativado via classe */
-    .show {
-        display: inline-block !important;
-    }
-
-    .btn-voltar-home {
-        display: inline-block;
-        padding: 10px 5px;
-        height: 20px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        text-decoration: none;
-        cursor: pointer;
-        margin-top: 10px;
-    }
-
-    .btn-voltar-home:hover {
-        background-color: #0056b3;
     }
 </style>
 
@@ -160,14 +188,15 @@
             <img src="{% static 'img/avatar.png' %}" alt="Avatar" class="avatar">
         {% endif %}
         <h3>{{ user.username }}</h3>
-        <p>{{ user.perfil.get_tipo_display|default:"usuário" }}</p>
+        <p>{{ user.perfil.get_tipo_display|default:"Usuário" }}</p>
 
         <div class="dias-plataforma">
             <i class="far fa-clock"></i> 1 dia(s) na plataforma
         </div>
-         <a href="{% url 'home' %}" class="btn-voltar-home">
-        Voltar para a Home
-    </a>
+        
+        <a href="{% url 'home' %}" class="btn-voltar-home">
+            Voltar para a Home
+        </a>
     </div>
 
     <form method="POST" enctype="multipart/form-data" class="perfil-form">
@@ -229,7 +258,6 @@
             Lançar Arte
         </a>
     </form>
-
 </div>
 
 <script>
@@ -238,9 +266,9 @@
 
     function toggleBotao() {
         if (toggle.checked) {
-            btnCadastrar.classList.add('show');
+            btnCadastrar.style.display = 'inline-block'; // Exibe o botão
         } else {
-            btnCadastrar.classList.remove('show');
+            btnCadastrar.style.display = 'none'; // Esconde o botão
         }
     }
 
