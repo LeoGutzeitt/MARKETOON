@@ -4,25 +4,42 @@
   <meta charset="UTF-8" />
   <title>Home - Produtos</title>
   <style>
-    body {
-      font-family: 'Comic Sans MS', sans-serif;
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
       margin: 0;
-      background-color: #f4f4f4;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9f9fb;
       color: #333;
     }
 
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
     header, footer {
-      background-color: #0097a7; /* Azul mais suave */
+      background-color:rgb(230, 247, 255);
       padding: 20px 40px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 4px solid rgb(185, 225, 226);
       border-radius: 10px;
     }
 
     header {
+      border-bottom: 4px solid rgb(133, 153, 240);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    footer {
+      border-top: 4px solid rgb(133, 153, 240);
+      padding-top: 20px;
+      font-size: 14px;
+      margin-top: auto;
     }
 
     .top-controls {
@@ -33,18 +50,17 @@
 
     .top-controls input[type="text"] {
       padding: 10px;
-      border-radius: 20px;
-      border: 2px solid #ddd;
-      width: 220px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      width: 240px;
       font-size: 16px;
-      background-color: #ffffff;
     }
 
     .top-controls button {
-      padding: 10px 15px;
+      padding: 10px 20px;
       border: none;
-      background-color: #00796b; /* Cor de botão mais agradável */
-      border-radius: 20px;
+      background-color:rgb(27, 77, 185);
+      border-radius: 8px;
       cursor: pointer;
       font-size: 16px;
       color: white;
@@ -52,18 +68,19 @@
     }
 
     .top-controls button:hover {
-      background-color: #004d40; /* Escurece um pouco quando em hover */
+      background-color: #004d40;
     }
 
     .top-controls button:active {
       transform: scale(0.98);
+      background-color: #43a047;
     }
 
     .sidebar {
       width: 250px;
-      background-color: #ffffff;
+      background-color: #fff;
       padding: 25px;
-      border-radius: 15px;
+      border-radius: 10px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       margin-right: 30px;
     }
@@ -71,40 +88,38 @@
     .main {
       display: flex;
       padding: 30px;
-      flex-wrap: wrap;
       gap: 40px;
       justify-content: space-between;
     }
 
     .products-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 40px;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 30px;
       flex-grow: 1;
     }
 
     .product-card {
       background: #ffffff;
-      border-radius: 15px;
+      border-radius: 10px;
       padding: 20px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
       text-align: center;
-      position: relative;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .product-card:hover {
-      transform: translateY(-40px);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+      transform: translateY(-8px);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
     }
 
     .product-card img {
       width: 100%;
       height: 180px;
-      background-color: #ccc;
-      border-radius: 20px;
-      margin-bottom: 20px;
+      background-color:rgb(90, 115, 226);
+      border-radius: 8px;
       object-fit: cover;
+      margin-bottom: 10px;
     }
 
     .wishlist-add-btn {
@@ -113,10 +128,10 @@
       right: 10px;
       background-color: transparent;
       border: none;
-      font-size: 22px;
-      color: #ff4081; /* Cor de destaque */
+      font-size: 20px;
+      color: #ff4081;
       cursor: pointer;
-      transition: transform 0.3s ease;
+      transition: transform 0.2s ease;
     }
 
     .wishlist-add-btn:hover {
@@ -124,62 +139,63 @@
     }
 
     .product-card strong {
-      font-size: 16px;
-      color: #333;
+      font-size: 18px;
+      display: block;
+      margin-bottom: 6px;
     }
 
     .product-card a {
       text-decoration: none;
-      color: #333;
-      font-size: 14px;
-      margin-top: 4px;
-      display: inline-block;
-      padding: 10px;
-      background-color: #00bfae; /* Cor de destaque mais suave */
-      border-radius: 12px;
-      transition: background-color 0.3s ease;
+      color:rgb(7, 6, 77);
+      font-weight: 500;
     }
 
-    .product-card a:hover {
-      background-color: #00796b; /* Cor de fundo ao passar o mouse */
+    .cart-button {
+      margin-top: 10px;
+      background-color:rgb(92, 112, 170);
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .cart-button:hover {
+      background-color: #00796b;
+      transform: scale(1.05);
     }
 
     .pagination {
       text-align: center;
-      padding: 30px;
+      padding: 40px 20px;
     }
 
     .pagination span, .pagination a {
-      margin: 0 5px;
-      padding: 8px 12px;
-      border: 2px solid #ccc;
-      border-radius: 12px;
+      margin: 0 4px;
+      padding: 6px 14px;
+      border: 1px solid #ccc;
+      border-radius: 20px;
       text-decoration: none;
       color: #333;
-      font-size: 16px;
+      font-size: 15px;
     }
 
     .pagination .current {
-      background-color: #00bfae; /* Cor de destaque para a página atual */
+      background-color:rgb(26, 24, 109);
       color: #fff;
-      font-weight: bold;
-    }
-
-    footer {
-      justify-content: space-between;
-      border-top: 4px solid #006064;
-      padding-top: 20px;
-      font-size: 14px;
     }
 
     .support-button {
-      background: #00796b;
+      background:rgb(49, 58, 184);
       color: #fff;
       border: none;
-      padding: 12px 20px;
+      padding: 10px 18px;
       border-radius: 25px;
       cursor: pointer;
-      font-size: 16px;
+      font-size: 15px;
       transition: background-color 0.3s ease;
     }
 
@@ -187,42 +203,14 @@
       background-color: #004d40;
     }
 
-    .sidebar label {
-      font-size: 14px;
-      color: #333;
+    .perfil-foto {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid white;
+      box-shadow: 0 0 4px rgba(0,0,0,0.2);
     }
-
-    .sidebar input[type="range"] {
-      width: 100%;
-      background: #f0f0f0;
-      border-radius: 10px;
-      border: 1px solid #ddd;
-    }
-    
-  .cart-button {
-  background-color:rgb(162, 217, 226); /* Laranja suave */
-  color: #333;
-  border: none;
-  padding: 15px 40px;
-  border-radius: 30px;
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: bold;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.cart-button:hover {
-  background-color:rgb(60, 218, 112); /* Tom mais forte ao passar o mouse */
-  transform: scale(1.05);
-}
-
-.cart-button:active {
-  transform: scale(0.98);
-  background-color: #fb8c00; /* Mais escuro no clique */
-}
-
-
 
   </style>
 </head>
@@ -231,66 +219,68 @@
 <header>
   <div class="top-controls">
     <img src="/static/img/logo.png" alt="Logo" width="50" />
-    <a href="/" style="color: white; font-size: 20px; font-weight: bold;">Home</a>
+    <a href="/" style="color: black; font-size: 20px; font-weight: bold;">Home</a>
 
     <form method="get" action="{% url 'home' %}">
       <input type="text" name="q" placeholder="Buscar produtos..." value="{{ request.GET.q }}">
     </form>
 
-    <button>✔ New</button>
-    <button>Price ↑</button>
-    <button>Price ↓</button>
-    <a href="{% url 'cadastro' %}"><button>Artist Publish</button></a>
+    <button>📚sem direito pleno</button>
+    <button>🔈direito pleno disponivel</button>
+    <button>🛸Promoções</button>
   </div>
 
   <div class="top-controls">
     <a href="/wishlist/"><button>⭐ Wishlist</button></a>
     <a href="/carrinho/"><button>🛒 Carrinho</button></a>
-    <!-- Login & Logout Section -->
+
     <div>
-      {% if request.user.is_authenticated %}
-        <a href="{% url 'perfil' %}" style="text-decoration: none; color: white;">
-          <span>Olá, {{ request.user.username }} <small style="color: gray;">(logado)</small></span>
-        </a>
-        <a href="{% url 'logout' %}">
-          <button>🚪 Logout</button>
-        </a>
-      {% else %}
-        <a href="{% url 'login' %}">
-          <button>Login</button>
-        </a>
-        <a href="{% url 'cadastrar' %}">
-          <button>Cadastrar</button>
-        </a>
-      {% endif %}
+     {% if request.user.is_authenticated %}
+  <a href="{% url 'perfil' %}" style="text-decoration: none; color: white;">
+    {% if request.user.perfil.imagem %}
+    <img src="{{ request.user.perfil.imagem.url }}" alt="Foto de perfil" class="perfil-foto">
+    {% else %}
+    <img src="/static/img/default-avatar.png" alt="Avatar" class="user-avatar">
+    {% endif %}
+    <span>Olá, {{ request.user.username }}</span>
+  </a>
+  <a href="{% url 'logout' %}">
+    <button>🚪 Logout</button>
+  </a>
+{% else %}
+  <a href="{% url 'login' %}">
+    <button>Login</button>
+  </a>
+  <a href="{% url 'cadastrar' %}">
+    <button>Cadastrar</button>
+  </a>
+{% endif %}
     </div>
   </div>
 </header>
 
 <div class="main">
-  <aside class="sidebar">
-    <h3>Filtros</h3>
-    <div>
-      <span>Spring ✕</span><br/>
-      <span>Smart ✕</span><br/>
-      <span>Modern ✕</span>
-    </div>
-    <br/>
-    <label><input type="checkbox" checked> Promoções<br/><small>Preços baixos</small></label><br/>
-    <label><input type="checkbox" checked> Direito pleno<br/><small>Exclusividade</small></label><br/>
-    <label><input type="checkbox" checked> Direito compartilhado<br/><small>Todos podem comprar</small></label>
+  <form method="get" action="{% url 'home' %}">
+  <h3>Filtros</h3>
 
-    <br/><br/>
-    <label>Preço<br/>
-      <input type="range" min="0" max="100" />
-    </label>
+  <!-- Palavras-chave -->
+  <input type="hidden" name="q" value="{{ request.GET.q }}">
 
-    <br/><br/>
-    <strong>Estilo</strong><br/>
-    <label><input type="checkbox" checked> Cartoon</label><br/>
-    <label><input type="checkbox" checked> Realismo</label><br/>
-    <label><input type="checkbox" checked> Conceito</label>
-  </aside>
+  <!-- Filtros de checkbox -->
+  <label><input type="checkbox" name="promo" {% if request.GET.promo %}checked{% endif %}> Promoções<br/><small>Preços baixos</small></label><br/>
+  <label><input type="checkbox" name="pleno" {% if request.GET.pleno %}checked{% endif %}> Direito pleno<br/><small>Exclusividade</small></label><br/>
+  <label><input type="checkbox" name="compartilhado" {% if request.GET.compartilhado %}checked{% endif %}> Direito compartilhado<br/><small>Todos podem comprar</small></label><br/><br/>
+
+  <!-- Filtro por preço -->
+  <label>Preço Máximo (R$): 
+    <input type="range" name="preco_max" min="0" max="10000" step="10" value="{{ request.GET.preco_max|default:'1000' }}" oninput="document.getElementById('precoValor').innerText = this.value">
+    <strong><span id="precoValor">{{ request.GET.preco_max|default:'10000' }}</span></strong>
+  </label>
+
+  <br/><br/>  
+
+  <button type="submit" class="support-button">Filtrar</button>
+</form>
 
   <section class="products-grid">
     {% for produto in produtos %}
@@ -301,20 +291,21 @@
         </form>
 
         <a href="{% url 'detalhes_produto' produto.id %}">
+
           {% if produto.imagem %}
             <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}">
           {% else %}
             <img src="/static/img/placeholder.png" alt="Sem imagem">
           {% endif %}
+
           <strong>{{ produto.nome }}</strong><br/>
           R$ {{ produto.preco }}
         </a>
 
-      <form method="post" action="{% url 'adicionar_carrinho' produto.id %}">
-  {% csrf_token %}
-  <button type="submit" class="cart-button">🛒 Adicionar ao Carrinho</button>
-      </form>
-
+        <form method="post" action="{% url 'adicionar_carrinho' produto.id %}">
+          {% csrf_token %}
+          <button type="submit" class="cart-button">🛒 Adicionar ao Carrinho</button>
+        </form>
 
         <a href="{% url 'pagina_de_compra' produto.id %}">Comprar</a>
       </div>
@@ -348,6 +339,7 @@
   <span>&copy; 2025 Marca de Produtos</span>
   <a href="{% url 'suporte' %}">
     <button class="support-button">✔ Fale com o Suporte</button>
+  </a>
 </footer>
 
 </body>

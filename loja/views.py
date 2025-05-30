@@ -21,17 +21,35 @@ def home(request):
     query = request.GET.get('q', '')
     produtos = func_registrar_produto.objects.filter(vendido=False)
 
+    # Busca por nome ou descrição
     if query:
         produtos = produtos.filter(
             Q(nome__icontains=query) |
             Q(descricao__icontains=query)
         )
 
+    if request.GET.get('pleno'):
+        produtos = produtos.filter(direito='pleno')
+
+    if request.GET.get('compartilhado'):
+        produtos = produtos.filter(direito='compartilhado')
+
+    preco_max = request.GET.get('preco_max')
+    if preco_max:
+        try:
+            preco_max = float(preco_max)
+            produtos = produtos.filter(preco__lte=preco_max)
+        except ValueError:
+            pass  # ignora valor inválido
+
+    # Paginação
     paginator = Paginator(produtos, 12)
     page = request.GET.get('page')
     produtos_paginados = paginator.get_page(page)
 
-    return render(request, 'loja/home.html', {'produtos': produtos_paginados})
+    return render(request, 'loja/home.html', {
+        'produtos': produtos_paginados
+    })
 
 
 def cadastro_produto(request):
