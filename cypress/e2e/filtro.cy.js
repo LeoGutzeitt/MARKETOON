@@ -4,10 +4,9 @@ Cypress.Commands.add('deletedatabase', () => {
 
 describe('Como artista, gostaria de poder lançar meus produtos na plataforma', () => {
 
-    beforeEach(() => {
-        cy.deletedatabase();
+    before(() => {
+    cy.deletedatabase();  
     });
-
     describe('Filtro por preço na home', () => {
 
         it('cadastra produto e filtra pelo preço corretamente', () => {

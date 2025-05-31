@@ -1,11 +1,11 @@
 Cypress.Commands.add('deletedatabase', () => {
-    cy.exec('python delete_database.py', { failOnNonZeroExit: false });
+  cy.exec('python delete_database.py', { failOnNonZeroExit: false });
 });
 
 describe('Como artista, gostaria de poder lançar meus produtos na plataforma', () => {
 
-    beforeEach(() => {
-        cy.deletedatabase();
+    before(() => {
+    cy.deletedatabase(); 
     });
 
     it('cadastro de produto com sucesso', () => {

@@ -1,6 +1,10 @@
+Cypress.Commands.add('deletedatabase', () => {
+  cy.exec('python delete_database.py', { failOnNonZeroExit: false });
+});
+
 describe('Página de Perfil', () => {
   before(() => {
-    cy.exec('python delete_database.py', { failOnNonZeroExit: false });
+    cy.deletedatabase();  
   });
 
   function cadastrarUsuario(email, username, senha) {

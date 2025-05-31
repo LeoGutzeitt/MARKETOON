@@ -1,4 +1,11 @@
+Cypress.Commands.add('deletedatabase', () => {
+    cy.exec('python delete_database.py', { failOnNonZeroExit: false });
+});
+
 describe('Acesso ao FAQ / Suporte', () => {
+  before(() => {
+    cy.deletedatabase();  
+  });
   it('vai da home para a página de suporte e interage com o FAQ', () => {
     cy.visit('/');
     cy.get('.support-button').contains('Fale com o Suporte').click();

@@ -1,7 +1,11 @@
+Cypress.Commands.add('deletedatabase', () => {
+  cy.exec('python delete_database.py', { failOnNonZeroExit: false });
+});
+
 describe('Funcionalidade de Pesquisa de Produtos', () => {
 
-  beforeEach(() => {
-    cy.deletedatabase();
+  before(() => {
+    cy.deletedatabase(); 
   });
 
   it('produto aparece ao pesquisar pelo nome completo', () => {
@@ -14,8 +18,6 @@ describe('Funcionalidade de Pesquisa de Produtos', () => {
     cy.get('#imagem').selectFile('media/produtos/lofiwall1.jpg');
     cy.get('button').click();
     cy.url().should('eq', 'http://127.0.0.1:8000/');
-
-    // Corrigido o seletor para pegar o input de texto no header
     cy.get('input[type="text"][name="q"]').click().clear({ force: true }).type('Quadro Abstrato Azul{enter}', { force: true });
     cy.contains('Quadro Abstrato Azul').should('exist');
   });

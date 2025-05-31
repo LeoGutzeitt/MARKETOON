@@ -26,8 +26,8 @@ function cadastrarProduto(nomeProduto) {
 
 describe('Fluxos completos de compra com cadastro e carrinho', () => {
 
-  beforeEach(() => {
-    cy.deletedatabase();
+  before(() => {
+    cy.deletedatabase();  
   });
 
   it('Carrinho -> Comprar -> Direito Compartilhado', () => {

@@ -1,4 +1,12 @@
+Cypress.Commands.add('deletedatabase', () => {
+  cy.exec('python delete_database.py', { failOnNonZeroExit: false });
+});
+
 describe('Fluxo de Cadastro', () => {
+  before(() => {
+    cy.deletedatabase(); 
+  });
+
   beforeEach(() => {
     cy.visit('/cadastrar');
   });
