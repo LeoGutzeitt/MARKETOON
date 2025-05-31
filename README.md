@@ -47,7 +47,7 @@ O _Marketoon_ é um sistema de controle de vendas que tem como objetivo auxiliar
 </details>
 
 ## Bug Tracker
-![Bug Tracker](src/bug.png)
+![Bug Tracker](src/bug.jpg)
 
 ## 🤝 Relatando Programação em Pares:
 ````
