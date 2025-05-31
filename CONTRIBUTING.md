@@ -2,7 +2,7 @@
 
 👋 **Bem-vindo(a)!**
 
-Se você chegou até aqui, é provável que tenha interesse em contribuir com o **MARKETOON**, uma aplicação web desenvolvida em **Django**, criada para facilitar a organização de campanhas e o gerenciamento de marketing para pequenos negócios.
+Se você chegou até aqui, é provável que tenha interesse em contribuir com o **MARKETOON**, uma aplicação web desenvolvida em **Django**, criada para auxiliar um artista, que queira anunciar a venda do seu TOON (produto) e, assim, intermediar a compra do cliente com o vendedor.
 
 Antes de começar a colaborar, leia este guia para entender como o projeto funciona e como você pode contribuir de forma efetiva.
 
