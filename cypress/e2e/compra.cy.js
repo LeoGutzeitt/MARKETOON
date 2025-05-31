@@ -88,4 +88,57 @@ describe('Fluxos completos de compra com cadastro e carrinho', () => {
     cy.contains(nomeProduto).should('not.exist');
   });
 
+  it('Falha ao tentar finalizar compra sem preencher nome', () => {
+    const nomeProduto = `Produto teste ${Date.now()}`;
+    cadastrarProduto(nomeProduto);
+
+    cy.contains(nomeProduto)
+      .closest('.product-card')
+      .within(() => {
+        cy.contains('Comprar').click();
+      });
+
+    cy.contains(/Direito compartilhado/i).click();
+    cy.url().should('include', '/pagamento');
+
+    cy.get('#email').type('cliente@email.com');
+    cy.get('#cartao').type('4111111111111111');
+    cy.get('#validade').type('2029-12');
+    cy.get('#cvv').type('123');
+
+    cy.get('button').contains('Finalizar Compra').click();
+
+    cy.get('#nome').then(($input) => {
+      expect($input[0].checkValidity()).to.be.false;
+      expect($input[0].validationMessage).to.match(/Preencha este campo./i);
+    });
+  });
+
+  it('Falha ao tentar finalizar compra sem preencher email', () => {
+    const nomeProduto = `Produto teste ${Date.now()}`;
+    cadastrarProduto(nomeProduto);
+
+    cy.contains(nomeProduto)
+      .closest('.product-card')
+      .within(() => {
+        cy.contains('Comprar').click();
+      });
+
+    cy.contains(/Direito pleno/i).click();
+    cy.url().should('include', '/pagamento');
+
+    cy.get('#nome').type('Cliente Teste');
+    cy.get('#cartao').type('4111111111111111');
+    cy.get('#validade').type('2029-12');
+    cy.get('#cvv').type('123');
+
+    cy.get('button').contains('Finalizar Compra').click();
+
+    cy.get('#email').then(($input) => {
+      expect($input[0].checkValidity()).to.be.false;
+      expect($input[0].validationMessage).to.match(/Preencha este campo./i);
+    });
+  });
+
+
 });
