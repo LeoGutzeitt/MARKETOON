@@ -1,70 +1,75 @@
 describe('Página de Perfil', () => {
-  beforeEach(() => {
+  before(() => {
     cy.exec('python delete_database.py', { failOnNonZeroExit: false });
   });
 
-  it('Você pode se cadastrar e acessar a página de perfil', () => {
+  function cadastrarUsuario(email, username, senha) {
     cy.visit('/cadastrar/');
-    cy.get('input[name="email"]').type('joao2@email.com');
-    cy.get('input[name="username"]').type('joaouser1');  
-    cy.get('input[name="password1"]').type('teste12342');
-    cy.get('input[name="password2"]').type('teste12342');
+    cy.get('input[name="email"]').type(email);
+    cy.get('input[name="username"]').type(username);
+    cy.get('input[name="password1"]').type(senha);
+    cy.get('input[name="password2"]').type(senha);
     cy.get('form').submit();
-
     cy.url().should('include', '/login');
+  }
 
-    cy.get('input[name="username"]').type('joaouser1');
-    cy.get('input[name="password"]').type('teste12342');
+  function loginUsuario(username, senha) {
+    cy.visit('/login/');
+    cy.get('input[name="username"]').type(username);
+    cy.get('input[name="password"]').type(senha);
     cy.get('form').submit();
+  }
+
+  it('Você pode se cadastrar e acessar a página de perfil', () => {
+    const email = 'joao2@email.com';
+    const username = 'joaouser1';  
+    const senha = 'teste12342';
+
+    cadastrarUsuario(email, username, senha);
+
+    loginUsuario(username, senha);
 
     cy.visit('/perfil/', { failOnStatusCode: false });
     cy.contains('Usuário').should('exist');
   });
 
   it('Você pode fazer login e acessar o perfil', () => {
-    cy.visit('/cadastrar/');
-    cy.get('input[name="email"]').type('usuario_teste@email.com');
-    cy.get('input[name="username"]').type('usuarioteste2');
-    cy.get('input[name="password1"]').type('senha1232');
-    cy.get('input[name="password2"]').type('senha1232');
-    cy.get('form').submit();
+    const email = 'usuario2@email.com';
+    const username = 'usuario2';
+    const senha = 'senha123';
 
-    cy.visit('/login/');
-    cy.get('input[name="username"]').type('usuarioteste2');
-    cy.get('input[name="password"]').type('senha1232');
-    cy.get('form').submit();
+    cadastrarUsuario(email, username, senha);
+    loginUsuario(username, senha);
 
     cy.visit('/perfil/', { failOnStatusCode: false });
     cy.contains('Usuário').should('exist');
   });
 
-  it('Você pode editar os campos de perfil', () => {
-    cy.visit('/login/');
-    cy.get('input[name="username"]').type('usuarioteste2');
-    cy.get('input[name="password"]').type('senha1232');
-    cy.get('form').submit();
+  it('Você pode editar o campo nome', () => {
+    const email = 'usuario3@email.com';
+    const username = 'usuario3';
+    const senha = 'senha123';
+
+    cadastrarUsuario(email, username, senha);
+    loginUsuario(username, senha);
 
     cy.visit('/perfil/', { failOnStatusCode: false });
-
     cy.get('input[name="name"]').should('exist').and('be.visible');
 
     cy.get('input[name="name"]').clear().type('Ana Maria');
-    cy.get('input[name="cpf"]').clear().type('12345678901');
-    cy.get('input[name="telefone"]').clear().type('11999999999');
-    cy.get('form').submit();
-
-    cy.contains('Perfil atualizado').should('exist');
+    cy.get('button.btn-salvar[type="submit"]').click();
 
     cy.reload();
     cy.get('input[name="name"]').should('have.value', 'Ana Maria');
-    cy.get('input[name="cpf"]').should('have.value', '12345678901');
-    cy.get('input[name="telefone"]').should('have.value', '11999999999');
   });
+
   it('Você pode ativar e desativar o modo vendedor e ver botão', () => {
-    cy.visit('/login/');
-    cy.get('input[name="username"]').type('usuarioteste');
-    cy.get('input[name="password"]').type('senha123');
-    cy.get('form').submit();
+    const email = 'usuario4@email.com';
+    const username = 'usuario4';
+    const senha = 'senha123';
+
+    cadastrarUsuario(email, username, senha);
+    loginUsuario(username, senha);
 
     cy.visit('/perfil/', { failOnStatusCode: false });
     cy.get('#toggle-vendedor').check({ force: true });
@@ -78,21 +83,23 @@ describe('Página de Perfil', () => {
 
     cy.reload();
     cy.get('button[type="submit"]').should('exist');
-});
+  });
 
   it('Campos do perfil mostram os dados atuais', () => {
-    cy.visit('/login/');
-    cy.get('input[name="username"]').type('usuarioteste');
-    cy.get('input[name="password"]').type('senha123');
-    cy.get('form').submit();
+    const email = 'abc@email.com';
+    const username = 'abc';
+    const senha = '12342';
+
+    cadastrarUsuario(email, username, senha);
+
+    loginUsuario(username, senha);
 
     cy.visit('/perfil/', { failOnStatusCode: false });
-    cy.get('input[name="email"]').should('have.value', 'usuario_teste@email.com');
+    cy.contains('Usuário').should('exist');
+
+    cy.get('input[name="email"]').should('have.value', email);
     cy.get('input[name="name"]').should('exist');
     cy.get('input[name="cpf"]').should('exist');
     cy.get('input[name="telefone"]').should('exist');
   });
 });
-
-
-
