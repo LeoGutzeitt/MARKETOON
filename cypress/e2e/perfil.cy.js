@@ -3,8 +3,8 @@ Cypress.Commands.add('deletedatabase', () => {
 });
 
 describe('Página de Perfil', () => {
-  before(() => {
-    cy.deletedatabase();  
+  beforeEach(() => {
+    cy.deletedatabase();
   });
 
   function cadastrarUsuario(email, username, senha) {
@@ -27,7 +27,7 @@ describe('Página de Perfil', () => {
   it('Você pode se cadastrar e acessar a página de perfil', () => {
     const email = 'joao2@email.com';
     const username = 'joaouser1';  
-    const senha = 'teste12342';
+    const senha = 'T3st3$egur0!A1';
 
     cadastrarUsuario(email, username, senha);
 
@@ -40,7 +40,7 @@ describe('Página de Perfil', () => {
   it('Você pode fazer login e acessar o perfil', () => {
     const email = 'usuario2@email.com';
     const username = 'usuario2';
-    const senha = 'senha123';
+    const senha = 'P@ssw0rd$2025';
 
     cadastrarUsuario(email, username, senha);
     loginUsuario(username, senha);
@@ -52,7 +52,7 @@ describe('Página de Perfil', () => {
   it('Você pode editar o campo nome', () => {
     const email = 'usuario3@email.com';
     const username = 'usuario3';
-    const senha = 'senha123';
+    const senha = 'S3nh@F0rt3#123';
 
     cadastrarUsuario(email, username, senha);
     loginUsuario(username, senha);
@@ -70,7 +70,7 @@ describe('Página de Perfil', () => {
   it('Você pode ativar e desativar o modo vendedor e ver botão', () => {
     const email = 'usuario4@email.com';
     const username = 'usuario4';
-    const senha = 'senha123';
+    const senha = 'F0rt3!Senha@456';
 
     cadastrarUsuario(email, username, senha);
     loginUsuario(username, senha);
@@ -89,10 +89,10 @@ describe('Página de Perfil', () => {
     cy.get('button[type="submit"]').should('exist');
   });
 
-    it('Botão "Cadastrar Arte" aparece ao ativar modo vendedor e permite cadastrar produto', () => {
+  it('Botão "Cadastrar Arte" aparece ao ativar modo vendedor e permite cadastrar produto', () => {
     const email = 'vendedor@email.com';
     const username = 'vendendorUser';
-    const senha = 'senha123';
+    const senha = 'V3nd3dor#Segur0!';
 
     cadastrarUsuario(email, username, senha);
     loginUsuario(username, senha);
@@ -120,11 +120,10 @@ describe('Página de Perfil', () => {
     cy.contains('nada importante').should('exist');
   });
 
-
   it('Campos do perfil mostram os dados atuais', () => {
     const email = 'abc@email.com';
     const username = 'abc';
-    const senha = '12342';
+    const senha = 'S3nh@F0rt3!789';
 
     cadastrarUsuario(email, username, senha);
 
