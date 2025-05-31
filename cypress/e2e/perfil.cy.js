@@ -89,6 +89,38 @@ describe('Página de Perfil', () => {
     cy.get('button[type="submit"]').should('exist');
   });
 
+    it('Botão "Cadastrar Arte" aparece ao ativar modo vendedor e permite cadastrar produto', () => {
+    const email = 'vendedor@email.com';
+    const username = 'vendendorUser';
+    const senha = 'senha123';
+
+    cadastrarUsuario(email, username, senha);
+    loginUsuario(username, senha);
+
+    cy.visit('/perfil/', { failOnStatusCode: false });
+
+    cy.get('#toggle-vendedor').check({ force: true });
+    cy.get('form').submit();
+
+    cy.reload();
+
+    cy.get('#btnCadastrarArte').should('be.visible').click();
+
+    cy.url().should('include', '/cadastro');
+
+    cy.get('#nome').type('nada importante');
+    cy.get('#email').type('nadaimportante@semail.com');
+    cy.get('#telefone').type('81999999999');
+    cy.get('#descricao').type('nada importante');
+    cy.get('#preco').type('120');
+    cy.get('#imagem').selectFile('media/produtos/lofiwall1.jpg', { force: true });
+    cy.get('button[type="submit"]').click();
+
+    cy.url().should('eq', 'http://127.0.0.1:8000/');
+    cy.contains('nada importante').should('exist');
+  });
+
+
   it('Campos do perfil mostram os dados atuais', () => {
     const email = 'abc@email.com';
     const username = 'abc';
