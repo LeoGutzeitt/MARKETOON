@@ -26,7 +26,7 @@ O _Marketoon_ é um sistema de controle de vendas que tem como objetivo auxiliar
 ### Sprint 2
 ![Sprint 2](https://github.com/user-attachments/assets/87364b1b-cf19-49fe-98cc-332ad25986b4)
 
-###sprint3
+### Sprint3
 ![image](https://github.com/user-attachments/assets/80b8a72e-8d08-4536-a121-249ce7368f10)
 
 
