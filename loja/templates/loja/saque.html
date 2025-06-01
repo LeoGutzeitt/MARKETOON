@@ -1,0 +1,328 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Realizar Saque - MarkeTOON</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7fc;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .content-wrapper {
+            max-width: 600px;
+            width: 100%;
+            padding: 2rem;
+            margin: 2rem 0;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .saque-section {
+            background-color: #3a3f44;
+            color: white;
+            padding: 1.5rem 2rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .saque-section h2 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: normal;
+            text-transform: uppercase;
+            color: #bdc0c2;
+        }
+
+        .saque-section .amount {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 0;
+            color: #ffffff;
+        }
+        
+        .btn-retirar-pagamento, .btn-payment-method, .btn-confirm-withdrawal, .btn-voltar {
+            color: #ffffff;
+            font-weight: bold;
+            padding: 0.8rem 1.2rem; /* Adjusted padding */
+            font-size: 0.95rem; /* Adjusted font size */
+            border-radius: 6px;
+            border: 1px solid #555;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 0.75rem; /* Space between buttons */
+        }
+        
+        .btn-retirar-pagamento {
+             background-color: #3a3f44;
+        }
+        .btn-retirar-pagamento:hover {
+            background-color: #4a4f54;
+            border-color: #777;
+        }
+         .btn-retirar-pagamento .icon {
+            font-size: 1.5rem;
+            margin-left: 10px;
+        }
+
+
+        .btn-payment-method {
+            background-color: #007bff; /* Blue for options */
+            border-color: #0069d9;
+            justify-content: center; /* Center text for these buttons */
+        }
+        .btn-payment-method:hover {
+            background-color: #0069d9;
+        }
+
+        .btn-confirm-withdrawal {
+            background-color: #28a745; /* Green for confirm */
+            border-color: #1e7e34;
+            justify-content: center;
+        }
+        .btn-confirm-withdrawal:hover {
+            background-color: #218838;
+        }
+        
+        .btn-voltar {
+            background-color: #6c757d; /* Grey for back/cancel */
+            border-color: #5a6268;
+            justify-content: center;
+        }
+        .btn-voltar:hover {
+            background-color: #5a6268;
+        }
+
+
+        #payment-options-step h4, #payment-details-form-step h4 {
+            color: #e9ecef; /* Lighter text for headings inside dark section */
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: .5rem;
+            color: #ced4da; /* Lighter label text */
+            font-size: 0.9rem;
+        }
+        .form-control {
+            width: 100%;
+            padding: .75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            border-radius: .25rem;
+            box-sizing: border-box;
+            transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        }
+        .form-control:focus {
+            color: #495057;
+            background-color: #fff;
+            border-color: #80bdff;
+            outline: 0;
+            box-shadow: 0 0 0 .2rem rgba(0,123,255,.25);
+        }
+        
+        .btn-voltar-perfil-page { /* Specific class for the main back button to profile */
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+        .btn-voltar-perfil-page:hover {
+            background-color: #0056b3;
+        }
+
+        .page-footer-info {
+            padding: 1rem;
+            font-size: 0.875rem;
+            color: #777;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="content-wrapper">
+        <div class="saque-section">
+            <h2>Valor Acumulado</h2>
+            <p class="amount">R$ {{ user.perfil.valor_acumulado|default:"0,00" }}</p> 
+        </div>
+
+        <div class="saque-section">
+            <div id="initial-withdraw-step">
+                <button type="button" class="btn-retirar-pagamento" id="btnShowPaymentOptions">
+                    RETIRAR PAGAMENTO
+                    <span class="icon">⇩</span>
+                </button>
+            </div>
+
+            <div id="payment-options-step" style="display:none;">
+                <h4>Escolha o método de saque:</h4>
+                <button type="button" class="btn-payment-method" data-method="pix">PIX</button>
+                <button type="button" class="btn-payment-method" data-method="qrcode">QR Code</button>
+                <button type="button" class="btn-payment-method" data-method="cartao">Cartão</button>
+                <button type="button" class="btn-voltar" id="btnBackToInitial">Voltar</button>
+            </div>
+
+            <div id="payment-details-form-step" style="display:none;">
+                
+                <div id="pix-form-content" class="payment-form-content" style="display:none;">
+                    <h4>Detalhes para Saque via PIX</h4>
+                    <div class="form-group">
+                        <label for="pix-key-type">Tipo de Chave PIX:</label>
+                        <select id="pix-key-type" name="pix_key_type" class="form-control">
+                            <option value="cpf">CPF</option>
+                            <option value="email">E-mail</option>
+                            <option value="phone">Celular</option>
+                            <option value="random">Aleatória</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="pix-key">Chave PIX:</label>
+                        <input type="text" id="pix-key" name="pix_key" class="form-control" placeholder="Sua chave PIX">
+                    </div>
+                    <div class="form-group">
+                        <label for="withdraw-amount-pix">Valor a sacar:</label>
+                        <input type="text" id="withdraw-amount-pix" name="withdraw_amount_pix" class="form-control" value="{{ user.perfil.valor_acumulado|default:'0,00' }}">
+                    </div>
+                    <button type="button" class="btn-confirm-withdrawal" data-method="pix">Confirmar Saque via PIX</button>
+                </div>
+
+                <div id="qrcode-form-content" class="payment-form-content" style="display:none;">
+                    <h4>Saque via QR Code</h4>
+                    <p style="color: #e0e0e0; font-size: 0.9em; margin-bottom: 1rem;">A funcionalidade de saque por QR Code será implementada em breve. Este método geralmente utiliza sua Chave PIX para transações via QR Code.</p>
+                    <button type="button" class="btn-confirm-withdrawal" data-method="qrcode">Confirmar (QR Pendente)</button>
+                </div>
+
+                <div id="cartao-form-content" class="payment-form-content" style="display:none;">
+                    <h4>Saque para Cartão</h4>
+                     <p style="color: #e0e0e0; font-size: 0.9em; margin-bottom: 1rem;">A funcionalidade de saque para cartão (débito/pré-pago) ou conta associada será implementada em breve.</p>
+                    <button type="button" class="btn-confirm-withdrawal" data-method="cartao">Confirmar (Cartão Pendente)</button>
+                </div>
+                <button type="button" class="btn-voltar" id="btnBackToOptionsFromDetails">Voltar às Opções</button>
+            </div>
+        </div>
+
+        <a href="{% url 'perfil' %}" class="btn-voltar-perfil-page">Voltar ao Perfil</a>
+    </div>
+
+    <div class="page-footer-info">
+        <p>@MarkeTOON - +55 (81) 9 9999-9999</p>
+    </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const initialStep = document.getElementById('initial-withdraw-step');
+        const optionsStep = document.getElementById('payment-options-step');
+        const detailsStep = document.getElementById('payment-details-form-step');
+
+        const btnShowOptions = document.getElementById('btnShowPaymentOptions');
+        const btnBackToInitial = document.getElementById('btnBackToInitial');
+        const btnBackToOptions = document.getElementById('btnBackToOptionsFromDetails');
+
+        const paymentMethodButtons = document.querySelectorAll('.btn-payment-method');
+        const paymentFormContents = document.querySelectorAll('.payment-form-content');
+        const confirmWithdrawalButtons = document.querySelectorAll('.btn-confirm-withdrawal');
+
+        if (btnShowOptions) {
+            btnShowOptions.addEventListener('click', function() {
+                initialStep.style.display = 'none';
+                optionsStep.style.display = 'block';
+                detailsStep.style.display = 'none'; // Ensure details is hidden
+            });
+        }
+
+        if (btnBackToInitial) {
+            btnBackToInitial.addEventListener('click', function() {
+                optionsStep.style.display = 'none';
+                initialStep.style.display = 'block';
+            });
+        }
+        
+        if (btnBackToOptions) {
+            btnBackToOptions.addEventListener('click', function() {
+                detailsStep.style.display = 'none';
+                paymentFormContents.forEach(form => form.style.display = 'none'); // Hide all specific forms
+                optionsStep.style.display = 'block';
+            });
+        }
+
+        paymentMethodButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const method = this.dataset.method;
+                
+                optionsStep.style.display = 'none';
+                detailsStep.style.display = 'block';
+                
+                paymentFormContents.forEach(form => form.style.display = 'none'); // Hide all
+                
+                const activeForm = document.getElementById(method + '-form-content');
+                if (activeForm) {
+                    activeForm.style.display = 'block';
+                }
+            });
+        });
+
+        confirmWithdrawalButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const method = this.dataset.method;
+                // Basic validation for PIX form as an example
+                if (method === 'pix') {
+                    const pixKey = document.getElementById('pix-key').value;
+                    const pixAmount = document.getElementById('withdraw-amount-pix').value;
+                    if (!pixKey || !pixAmount) {
+                        alert('Por favor, preencha a Chave PIX e o valor para saque.');
+                        return;
+                    }
+                     alert('Solicitação de saque via PIX para a chave: ' + pixKey + ' no valor de R$ ' + pixAmount + ' enviada para processamento.');
+                } else {
+                    alert('Confirmação de saque via ' + method.toUpperCase() + ' (Implementação pendente).');
+                }
+                // Here you would typically submit a form or make an AJAX request to your backend
+                // For now, we can redirect or reset the view
+                detailsStep.style.display = 'none';
+                paymentFormContents.forEach(form => form.style.display = 'none');
+                initialStep.style.display = 'block'; // Go back to initial state after "confirmation"
+            });
+        });
+    });
+</script>
+</body>
+</html>

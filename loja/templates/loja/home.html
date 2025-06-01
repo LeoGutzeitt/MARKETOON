@@ -22,21 +22,22 @@
     }
 
     header, footer {
-      background-color:rgb(230, 247, 255);
-      padding: 20px 40px;
+      background-color:rgb(184, 184, 184);
+      padding: 15px 50px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-radius: 10px;
+      border-radius: 80px;
+      margin: 10px;
     }
 
     header {
-      border-bottom: 4px solid rgb(133, 153, 240);
+      border-bottom: 4px solid rgb(0, 0, 0);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
     footer {
-      border-top: 4px solid rgb(133, 153, 240);
+      border-top: 4px solid rgb(0, 0, 0);
       padding-top: 20px;
       font-size: 14px;
       margin-top: auto;
@@ -46,6 +47,7 @@
       display: flex;
       align-items: center;
       gap: 20px;
+      
     }
 
     .top-controls input[type="text"] {
@@ -54,26 +56,30 @@
       border: 1px solid #ccc;
       width: 240px;
       font-size: 16px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
     .top-controls button {
       padding: 10px 20px;
       border: none;
-      background-color:rgb(27, 77, 185);
+      background-color:rgb(92, 112, 170);
       border-radius: 8px;
       cursor: pointer;
       font-size: 16px;
       color: white;
       transition: background-color 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
     .top-controls button:hover {
       background-color: #004d40;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
     .top-controls button:active {
       transform: scale(0.98);
       background-color: #43a047;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
     .sidebar {
@@ -111,15 +117,17 @@
     .product-card:hover {
       transform: translateY(-8px);
       box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+      padding: 20px;
     }
 
     .product-card img {
-      width: 100%;
+      width: 120%;
       height: 180px;
       background-color:rgb(90, 115, 226);
       border-radius: 8px;
       object-fit: cover;
       margin-bottom: 10px;
+      
     }
 
     .wishlist-add-btn {
@@ -184,12 +192,12 @@
     }
 
     .pagination .current {
-      background-color:rgb(26, 24, 109);
+      background-color:rgb(92, 112, 170);
       color: #fff;
     }
 
     .support-button {
-      background:rgb(49, 58, 184);
+      background:rgb(92, 112, 170);
       color: #fff;
       border: none;
       padding: 10px 18px;
@@ -212,13 +220,18 @@
       box-shadow: 0 0 4px rgba(0,0,0,0.2);
     }
 
+    img {
+            width: 20%;
+            max-width: 200px;
+        }
+
   </style>
 </head>
 <body>
 
 <header>
   <div class="top-controls">
-    <img src="/static/img/logo.png" alt="Logo" width="50" />
+    <a><img src="https://i.ibb.co/99ZgTsHf/Captura-de-tela-2025-05-31-214640.png" alt="Captura-de-tela-2025-05-31-214640" border="0" class = img></a>
     <a href="/" style="color: black; font-size: 20px; font-weight: bold;">Home</a>
 
     <form method="get" action="{% url 'home' %}">

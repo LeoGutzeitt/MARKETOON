@@ -10,6 +10,7 @@ from django.contrib import messages
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 from django.dispatch import receiver
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def detalhes_produto(request, id):
@@ -292,3 +293,17 @@ def perfil(request):
     'perfil': perfil,
     'produtos_disponiveis': produtos_disponiveis,
 })
+
+
+@login_required 
+def saque_page_view(request):
+    # You can fetch any necessary data for the template here
+    # For example, to get the accumulated value:
+    # perfil_usuario = request.user.perfil # Assuming you have a OneToOneField 'perfil' from User to your Perfil model
+    # valor_acumulado = perfil_usuario.valor_acumulado
+
+    context = {
+        # 'valor_acumulado': valor_acumulado, 
+        # Pass any other context variables your template might need
+    }
+    return render(request, 'loja/saque.html', context) 

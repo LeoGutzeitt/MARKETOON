@@ -93,7 +93,8 @@
 
     .btn-salvar,
     .btn-cadastrar-arte,
-    .btn-voltar-home {
+    .btn-voltar-home,
+    .btn-ir-saque { /* Added common class for new button */
         padding: 12px 24px;
         font-size: 1rem;
         border-radius: 6px;
@@ -102,10 +103,15 @@
         text-decoration: none;
         color: #fff;
         transition: all 0.3s ease;
+        display: inline-block; /* Ensure consistent block display */
+        width: 80%; /* Consistent width with other sidebar buttons */
+        box-sizing: border-box; /* Include padding and border in the element's total width and height */
+        text-align: center;
     }
 
     .btn-salvar {
         background-color: #4CAF50;
+        width: auto; /* Salvar button might not need full width */
     }
 
     .btn-salvar:hover {
@@ -114,8 +120,9 @@
 
     .btn-cadastrar-arte {
         background-color: #007bff;
-        margin-left: 1rem;
+        margin-left: 1rem; /* Only if it's next to another button like salvar */
         display: none; /* Inicialmente escondido */
+        width: auto; /* Cadastrar Arte button might not need full width */
     }
 
     .btn-cadastrar-arte:hover {
@@ -125,13 +132,19 @@
     .btn-voltar-home {
         background-color: #007bff;
         margin-top: 1rem;
-        text-align: center;
-        display: inline-block;
-        width: 80%;
     }
 
     .btn-voltar-home:hover {
         background-color: #0056b3;
+    }
+
+    .btn-ir-saque { /* Style for the new button */
+        background-color: #ff9800; /* Orange color for distinction */
+        margin-top: 0.75rem; /* Space from the button above */
+    }
+
+    .btn-ir-saque:hover {
+        background-color: #f57c00; /* Darker orange on hover */
     }
 
     .switch {
@@ -196,6 +209,11 @@
         
         <a href="{% url 'home' %}" class="btn-voltar-home">
             Voltar para a Home
+        </a>
+        
+        {# NEW BUTTON ADDED HERE #}
+        <a href="{% url 'pagina_saque' %}" class="btn-ir-saque">
+            Realizar Saque
         </a>
     </div>
 

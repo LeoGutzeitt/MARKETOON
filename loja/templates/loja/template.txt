@@ -1,0 +1,243 @@
+<!DOCTYPE html>  --------------  pag de compra nova
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Planos de Compra</title>
+  <style>
+    /* Estilos gerais */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0; 
+      background-color: #E9EFFC; /* Azul bem claro do print */
+      color: #333; 
+    }
+
+    .container {
+      display: flex;
+      justify-content: space-between;
+      padding: 30px; 
+      gap: 30px; 
+      max-width: 1100px; 
+      margin: 30px auto 0 auto; /* Margem superior e centralização */
+    }
+
+    .card {
+      background-color: white;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); 
+      padding: 25px;
+      width: 48%;
+      border-radius: 10px; 
+      transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+      display: flex;
+      flex-direction: column; 
+    }
+
+    .card:hover {
+      transform: translateY(-5px); 
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    }
+
+    h2 {
+      font-size: 1.7em; 
+      margin-top: 0;
+      margin-bottom: 15px;
+      color: #2c3e50; 
+    }
+
+    .price {
+      font-size: 2em; 
+      color: #5D9CEC; /* Azul do print */
+      margin-bottom: 25px;
+      font-weight: bold;
+    }
+
+    .price small {
+      font-size: 0.5em; 
+      font-weight: normal;
+      color: #7f8c8d; 
+    }
+
+    ul {
+      padding: 0;
+      list-style-type: none;
+      margin-bottom: 30px; 
+      flex-grow: 1; 
+    }
+
+    ul li {
+      font-size: 1em;
+      margin-bottom: 12px;
+      color: #555; 
+      line-height: 1.5;
+    }
+
+    .btn {
+      color: white;
+      padding: 14px 20px; 
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1em;
+      font-weight: bold;
+      text-transform: uppercase; /* CAIXA ALTA como no print */
+      transition: background-color 0.25s, transform 0.2s;
+      text-align: center;
+      display: block; 
+      width: 100%; 
+    }
+
+    .btn:hover {
+      transform: translateY(-2px); 
+    }
+
+    #btn-compartilhado {
+      background-color: #5D9CEC; /* Azul do print para botão esquerdo */
+    }
+
+    #btn-compartilhado:hover {
+      background-color: #4A89CC; 
+    }
+
+    #btn-pleno {
+      background-color: #3B6EA7; /* Azul escuro do print para botão direito */
+    }
+
+    #btn-pleno:hover {
+      background-color: #2E5A8A; 
+    }
+
+    .circles, .xgroup {
+      display: flex;
+      justify-content: flex-start; 
+      gap: 10px; 
+      margin-top: 20px; 
+    }
+
+    .circles span, .xgroup span {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      color: white;
+      font-weight: bold;
+    }
+
+    .circles span {
+      background-color: #69D277; /* Verde do print */
+    }
+
+    .xgroup span {
+      background-color: #E65252; /* Vermelho do print */
+    }
+
+    /* Estilo para o bloco do autor */
+    .autor-box {
+      background-color: white;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+      border-radius: 10px;
+      max-width: 1100px; 
+      margin: 30px auto 30px auto; /* Margem para separar do container e centralizar */
+    }
+
+    .autor-box .title {
+      font-size: 0.9em; 
+      margin-bottom: 5px;
+      color: #7f8c8d; 
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .autor-box .name {
+      font-size: 2em; 
+      margin-bottom: 20px;
+      font-weight: bold;
+      color: #5D9CEC; /* Azul do print, igual ao preço */
+    }
+
+    .autor-desc, .autor-email, .autor-tel {
+      margin-bottom: 18px;
+    }
+
+    .autor-desc p, .autor-email p, .autor-tel p {
+      font-size: 1em;
+      margin-bottom: 6px;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    .autor-box strong {
+      color: #333;
+      font-weight: 600; 
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h2>{{ produto.nome }}</h2>
+      <div class="price">R${{ produto.preco_basico }}<small>/mo</small></div>
+      <ul>
+        <li>Item básico 1</li>
+        <li>Item básico 2</li>
+        <li>Item básico 3</li>
+        <li>Item básico 4</li>
+      </ul>
+      <button id="btn-compartilhado" class="btn">Direito compartilhado</button>
+      <div class="circles">
+        <span></span><span></span><span></span><span>+1</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>{{ produto.nome }}</h2>
+      <div class="price">R${{ produto.preco_pleno }}<small>,00</small></div>
+      <ul style="font-style: italic;"> <li>Item premium 1</li>
+        <li>Item premium 2</li>
+        <li>Item premium 3</li>
+        <li>Item premium 4</li>
+        <li>Item premium 5</li>
+      </ul>
+      <button id="btn-pleno" class="btn">Direito pleno</button>
+      <div class="xgroup">
+        <span>❌</span><span>❌</span><span>❌</span><span>❌</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="autor-box">
+    <p class="title">Autor</p>
+    <p class="name">{{ produto.autor_nome|upper }}</p>
+
+    <div class="autor-desc">
+      <p><strong>Descrição: </strong> {{ produto.descricao }}</p>
+      <p>Menu description.</p>
+    </div>
+
+    <div class="autor-email">
+      <p><strong>Email: </strong> {{ produto.email }}</p>
+      <p>Menu description.</p>
+    </div>
+
+    <div class="autor-tel">
+      <p><strong>Telefone: </strong> {{ produto.telefone }}</p>
+      <p>Menu description.</p>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("btn-compartilhado").addEventListener("click", function() {
+      window.location.href = "/pagamento/?produto_id={{ produto.id }}&plano=compartilhado";
+    });
+
+    document.getElementById("btn-pleno").addEventListener("click", function() {
+      window.location.href = "/pagamento/?produto_id={{ produto.id }}&plano=pleno";
+    });
+  </script>
+</body>
+</html>

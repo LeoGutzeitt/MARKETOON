@@ -26,10 +26,16 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('cadastrar/', views.cadastrar, name='cadastrar'),
     path('processar_pagamento/', views.processar_pagamento, name='processar_pagamento'),
-
     path('perfil/', views.perfil, name='perfil'),
     
+    path('saque/', views.saque_page_view, name='pagina_saque'), 
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+
+
+
+   
