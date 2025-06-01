@@ -10,15 +10,14 @@ load_dotenv(BASE_DIR / '.env')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
-TARGET_ENV = os.getenv('TARGET_ENV', 'dev') # Default to 'dev' if TARGET_ENV is not set in .env
-
-# Ensures NOT_PROD is True if TARGET_ENV is 'dev', 'local', or not explicitly 'prod*'
+TARGET_ENV = os.getenv('TARGET_ENV')
 NOT_PROD = not TARGET_ENV.lower().startswith('prod')
 
 if NOT_PROD:
-    print("INFO: Running in NON-PRODUCTION (DEBUG) mode via settings.py")
+    # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = True
-    SECRET_KEY = 'django-insecure-zot9349(=0kis++cts3*pv)osg1(8qz7*uy9)9y5w30yvt8+_w' # Standard insecure key for dev
+    # SECURITY WARNING: keep the secret key used in production secret!
+    SECRET_KEY = 'django-insecure-zot9349(=0kis++cts3*pv)osg1(8qz7*uy9)9y5w30yvt8+_w'
     ALLOWED_HOSTS = []
     DATABASES = {
         'default': {
@@ -27,11 +26,10 @@ if NOT_PROD:
         }
     }
 else:
-    print("INFO: Running in PRODUCTION mode via settings.py")
     SECRET_KEY = os.getenv('SECRET_KEY')
-    DEBUG = os.getenv('DEBUG', '0').lower() in ['true', 't', '1'] # DEBUG can still be True in "prod" if env var says so
-    ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(' ') # Add default if env var is missing
-    CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', '').split(' ') # Add default if env var is missing
+    DEBUG = os.getenv('DEBUG', '0').lower() in ['true', 't', '1']
+    ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(' ')
+    CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS').split(' ')
 
     SECURE_SSL_REDIRECT = \
         os.getenv('SECURE_SSL_REDIRECT', '0').lower() in ['true', 't', '1']
@@ -39,18 +37,19 @@ else:
     if SECURE_SSL_REDIRECT:
         SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-    DATABASES = { # This is the production database block
+    DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': os.environ.get('DBNAME'),
             'HOST': os.environ.get('DBHOST'),
             'USER': os.environ.get('DBUSER'),
             'PASSWORD': os.environ.get('DBPASS'),
-            'OPTIONS': {'sslmode': 'require'}, # Ensure this is correct for your Postgres setup
+            'OPTIONS': {'sslmode': 'require'},
         }
     }
     
 # Application definition
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -58,13 +57,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'whitenoise.runserver_nostatic', # Django's runserver will NOT serve static files. WhiteNoise will.
-    'loja', # Sua aplicação 'loja'
+    'loja',
+    "whitenoise.runserver_nostatic",
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', # WhiteNoise middleware - importante que venha cedo
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -73,15 +72,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'MARKETOON.urls' # Certifique-se que 'MARKETOON' é o nome correto do seu diretório de projeto
+ROOT_URLCONF = 'MARKETOON.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        # Se você tiver uma pasta 'templates' na raiz do projeto (nível de manage.py), adicione-a aqui:
-        # 'DIRS': [os.path.join(BASE_DIR, 'templates')],
-        'DIRS': [], # Deixe vazio se seus templates estão apenas dentro das apps
-        'APP_DIRS': True, # Permite que o Django encontre templates em 'loja/templates/', etc.
+        'DIRS': [],
+        'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -93,51 +90,74 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'MARKETOON.wsgi.application' # Certifique-se que 'MARKETOON' é o nome correto
+WSGI_APPLICATION = 'MARKETOON.wsgi.application'
 
-# A configuração de DATABASES agora é feita exclusivamente no bloco if NOT_PROD / else no topo.
+
+# Database
+# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
 
 # Password validation
+# https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
+
 AUTH_PASSWORD_VALIDATORS = [
-    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
 ]
+
 
 # Internationalization
-LANGUAGE_CODE = 'pt-br' # Ajustado para Português do Brasil
-TIME_ZONE = 'America/Recife' # Ajustado para fuso horário de Recife
+# https://docs.djangoproject.com/en/5.1/topics/i18n/
+
+LANGUAGE_CODE = 'en-us'
+
+TIME_ZONE = 'UTC'
+
 USE_I18N = True
-USE_TZ = True # USE_L10N é obsoleto; USE_TZ controla a consciência de fuso horário
+
+USE_TZ = True
+
 
 # Static files (CSS, JavaScript, Images)
-STATIC_URL = os.environ.get('DJANGO_STATIC_URL', '/static/') # URL para referenciar arquivos estáticos (normalmente '/static/')
+# https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-# Diretório onde o `collectstatic` irá copiar todos os arquivos estáticos para produção.
-# WhiteNoise servirá desta pasta em produção.
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_collected') # Você pode nomear como 'staticfiles' se preferir
+# STATIC_URL = "static/"
+STATIC_URL = os.environ.get('DJANGO_STATIC_URL', "/static/")
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# Lista de diretórios onde o Django (e WhiteNoise) procurarão por arquivos estáticos adicionais,
-# além das pastas 'static' dentro de cada app (como 'loja/static/').
-# Sua imagem 'logo.png' está em 'loja/static/img/logo.png' e será encontrada por estar em uma app.
-# A linha abaixo é para uma pasta 'static' global na raiz do projeto.
-# Se você não tiver essa pasta global, esta linha pode ser uma lista vazia `[]` ou removida.
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
-
-# Backend de armazenamento para WhiteNoise, otimizado para produção.
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = ('whitenoise.storage.CompressedManifestStaticFilesStorage')
 
 # Default primary key field type
+# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Login/Logout URLs
+
+# SECRET_KEY = 
+
+
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
 
-# Media files (arquivos enviados por usuários)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+
