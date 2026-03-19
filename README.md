@@ -1,6 +1,11 @@
 # =-= MARKETOON =-= 
 ![texto](/src/logo-marketoon500-420.png)
 
+## 📁 Portfólio de Projetos
+Confira todos os projetos desenvolvidos e os projetos que participei: **[PROJECTS.md](PROJECTS.md)**
+
+---
+
 ## 👥 Equipe
 ````
 - Gabriel Victalino
